@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>SeQRentry Demo</title>
+    <script type="text/javascript">SEQRENTRY_PROXY_URL = "http://localhost:8080/";</script>
+    <script type="text/javascript" src="seqrentry.js" async="async"></script>
+  </head>
+
+  <body>
+   <h1>SeQRentry Demo</h1>
+
+   <form>
+     <div data-seqrentry-type="noform">
+       <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
+       <input type="email" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password"  />
+       <span style="display: inline-block; width: 80px; height: 80px;" data-seqrentry-type="login"></span>
+       <input type="submit" value="Log in"/>
+     </div>
+   </form>
+  </body>
+</html>
