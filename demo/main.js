@@ -6,88 +6,14 @@ window.addEventListener("load", function load(ev){
   window.removeEventListener("load", load, false);
   SeQRentry['install']();
 
-  add_entropy("" + new Date().getTime());
-
-  window.addEventListener("mousemove", function load(ev) {
-    add_ritardando_entropy("mousemove", "" + ev.clientX + ev.clientY + ev.screenX + ev.screenY + ev.timeStamp);
-  });
-
-  window.addEventListener("deviceorientation", function load(ev) {
-    add_ritardando_entropy("deviceorientation", "" + ev.alpha + ev.beta + ev.gamma + ev.timeStamp);
-  });
-
-  window.addEventListener("devicemotion", function load(ev) {
-    var acc = ev.accelerationIncludingGravity;
-
-    if (acc) {
-      add_ritardando_entropy("devicemotion", "" + acc.x + acc.y + acc.x);
-    }
-  });
-
-  window.addEventListener("keydown", function load(ev) {
-    add_ritardando_entropy("keydown", "" + ev.keyCode + ev.which + ev.timeStamp);
-  });
+  Random.init();
+  Random.addEntropy("" + new Date().getTime());
 }, false);
 
-// Gather entropy for encryption
-var entropy = "";
-var ritardando_state = {}
-
-function add_entropy(s) {
-  entropy = rstr_sha256(entropy + s);
-  console.log(s, entropy, Base64.encode(entropy, Base64.urlCS));
-}
-
-// Sample a lesser and lesser frequent 'random' selection of events
-function add_ritardando_entropy(name, str) {
-  var state = (ritardando_state[name] = ritardando_state[name] || { c: 0, m: 1 })
-
-  if (++state.c >= state.m) {
-    state.c = 0;
-    state.m *= 1 + 0.5 * Math.random();
-
-    add_entropy(str);
-  }
-}
-
-function secure_random_bytes(bytes) {
-  var result = new Array(bytes), i, r;
-
-  for (i = 0; i < bytes; ++i) {
-    r = i % 16;
-
-    result[i] = (Math.round(255 * Math.random()) ^ entropy.charCodeAt(r)) & 255;
-
-    if (r == 15) {
-      entropy = entropy.substring(16);
-      add_entropy("" + i);
-    }
-  }
-
-  // Discard used entropy bytes
-  entropy = entropy.substring(16);
-  add_entropy("" + new Date().getTime());
-
-  // Re-trigger frequent entropy gathering
-  ritardando_state = {};
-
-  return result;
-}
-
-function secure_random_string(length) {
-  var result = [], bytes = secure_random_bytes(length), i;
-
-  for (i = 0; i < length; ++i) {
-    result.push(String.fromCharCode(bytes[i]));
-  }
-
-  return result.join("");
-}
-
 // Add some entropy now
-add_entropy(navigator.userAgent + document.cookie + 
-	    new Date().getTime() + Math.random() +
-	    window.innerWidth + window.innerHeight + window.screen.width + window.screen.height);
+Random.addEntropy(navigator.userAgent + document.cookie + 
+		  new Date().getTime() + Math.random() +
+		  window.innerWidth + window.innerHeight + window.screen.width + window.screen.height);
 
 // Add more entropy by serializing plugins, if possible (see https://panopticlick.eff.org/)
 var plugins = [], p, m, plug, mime;
@@ -104,7 +30,7 @@ if (navigator.plugins) {
     }
   }
 }
-add_entropy(plugins.join(""));
+Random.addEntropy(plugins.join(""));
 
 var id_name   = "data-seqrentry-id";
 var type_name = "data-seqrentry-type";
@@ -189,10 +115,11 @@ SeQRentry['proxyCreated'] = function(status, params) {
   console.log("SeQRentry.proxyCreated", status, params);
 
   var id = params['ident'];
+  var proxy = params['proxy'] + ".js";
 
-  buttons[id].href = make_url(id, params['proxy'], params['token']);
+  buttons[id].href = make_url(id, proxy, params['token']);
   buttons[id].el.innerHTML = make_qr(id);
-  buttons[id].channel = params['proxy'] + "?ident=" + params['ident'] + "&token=" + params['token'];
+  buttons[id].channel = proxy + "?ident=" + params['ident'] + "&token=" + params['token'];
 
   poll_channel(id);
 };

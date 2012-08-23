@@ -11,6 +11,7 @@
 
     <script src="base64.js"></script>
     <script src="qrcode.js"></script>
+    <script src="random.js"></script>
     <script src="sha256.js"></script>
     <script src="main.js"></script>
   </head>
@@ -19,12 +20,38 @@
    <h1>SeQRentry Demo</h1>
 
    <form>
-     <div data-seqrentry-type="noform">
+     <fieldset>
+       <legend>Register</legend>
+
        <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-       <input type="email" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password"  />
-       <span style="display: inline-block; width: 80px; height: 80px;" data-seqrentry-type="login"></span>
-       <input type="submit" value="Log in"/>
-     </div>
+       <input type="email" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password" />
+       <input type="submit" value="Create account"/>
+       <button style="width: 80px; height: 80px;" data-seqrentry-type="register"></button>
+     </fieldset>
    </form>
+
+   <form>
+     <fieldset>
+       <legend>Changle password</legend>
+
+       <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
+       <input type="email" placeholder="Enter your current password" name="old" maxlength="20" data-seqrentry-type="old-password"  />
+       <input type="email" placeholder="Enter your new password" name="password" maxlength="20" data-seqrentry-type="password"  />
+       <input type="submit" value="Update password"/>
+       <button style="width: 80px; height: 80px;" data-seqrentry-type="change"></button>
+     </fieldset>
+   </form>
+
+   <form>
+     <fieldset>
+       <legend>Log in</legend>
+
+       <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
+       <input type="email" placeholder="Enter your secret password" name="password" data-seqrentry-type="password"  />
+       <input type="submit" value="Log in"/>
+       <button style="width: 80px; height: 80px;" data-seqrentry-type="login"></button>
+     </fieldset>
+   </form>
+
   </body>
 </html>

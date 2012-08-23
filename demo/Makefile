@@ -8,7 +8,7 @@ all:	seqrentry.js
 clean:
 	$(RM) seqrentry.js seqrentry-all.js
 
-seqrentry.js: base64.js qrcode.js sha256.js main.js 
+seqrentry.js: base64.js qrcode.js random.js sha256.js main.js 
 	cat $^ | \
 	$(CURL) --data compilation_level=$(LEVEL) \
 		--data output_format=text \
