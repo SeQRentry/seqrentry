@@ -1,48 +1,48 @@
 window['SeQRentry'] = {};
 
-
 // Initialize everything when document is loaded
 
 window.addEventListener("load", function load(ev){
   window.removeEventListener("load", load, false);
   SeQRentry['install']();
 
-  add_entropy(navigator.userAgent + document.cookie + 
-	      init_time + new Date().getTime() + 
-	      window.innerWidth + window.innerHeight + window.screen.width + window.screen.height);
+  add_entropy("" + new Date().getTime());
 
   window.addEventListener("mousemove", function load(ev) {
-    add_mouse_entropy("mousemove", "" + ev.clientX + ev.clientY + ev.screenX + ev.screenY + ev.timeStamp);
+    add_ritardando_entropy("mousemove", "" + ev.clientX + ev.clientY + ev.screenX + ev.screenY + ev.timeStamp);
   });
 
   window.addEventListener("deviceorientation", function load(ev) {
-    add_mouse_entropy("deviceorientation", "" + ev.alpha + ev.beta + ev.gamma + ev.timeStamp);
+    add_ritardando_entropy("deviceorientation", "" + ev.alpha + ev.beta + ev.gamma + ev.timeStamp);
   });
 
   window.addEventListener("devicemotion", function load(ev) {
     var acc = ev.accelerationIncludingGravity;
 
     if (acc) {
-      add_mouse_entropy("devicemotion", "" + acc.x + acc.y + acc.x);
+      add_ritardando_entropy("devicemotion", "" + acc.x + acc.y + acc.x);
     }
+  });
+
+  window.addEventListener("keydown", function load(ev) {
+    add_ritardando_entropy("keydown", "" + ev.keyCode + ev.which + ev.timeStamp);
   });
 }, false);
 
 // Gather entropy for encryption
-var init_time = new Date().getTime();
 var entropy = "";
-var mouse_state = {}
+var ritardando_state = {}
 
 function add_entropy(s) {
   entropy = rstr_sha256(entropy + s);
-  console.log(entropy);
+  console.log(s, entropy, Base64.encode(entropy, Base64.urlCS));
 }
 
-function add_mouse_entropy(name, str) {
-  var state = (mouse_state[name] = mouse_state[name] || { c: 0, m: 1 })
+// Sample a lesser and lesser frequent 'random' selection of events
+function add_ritardando_entropy(name, str) {
+  var state = (ritardando_state[name] = ritardando_state[name] || { c: 0, m: 1 })
 
   if (++state.c >= state.m) {
-    // Sample a 'random' selection of mouse events
     state.c = 0;
     state.m *= 1 + 0.5 * Math.random();
 
@@ -50,6 +50,61 @@ function add_mouse_entropy(name, str) {
   }
 }
 
+function secure_random_bytes(bytes) {
+  var result = new Array(bytes), i, r;
+
+  for (i = 0; i < bytes; ++i) {
+    r = i % 16;
+
+    result[i] = (Math.round(255 * Math.random()) ^ entropy.charCodeAt(r)) & 255;
+
+    if (r == 15) {
+      entropy = entropy.substring(16);
+      add_entropy("" + i);
+    }
+  }
+
+  // Discard used entropy bytes
+  entropy = entropy.substring(16);
+  add_entropy("" + new Date().getTime());
+
+  // Re-trigger frequent entropy gathering
+  ritardando_state = {};
+
+  return result;
+}
+
+function secure_random_string(length) {
+  var result = [], bytes = secure_random_bytes(length), i;
+
+  for (i = 0; i < length; ++i) {
+    result.push(String.fromCharCode(bytes[i]));
+  }
+
+  return result.join("");
+}
+
+// Add some entropy now
+add_entropy(navigator.userAgent + document.cookie + 
+	    new Date().getTime() + Math.random() +
+	    window.innerWidth + window.innerHeight + window.screen.width + window.screen.height);
+
+// Add more entropy by serializing plugins, if possible (see https://panopticlick.eff.org/)
+var plugins = [], p, m, plug, mime;
+if (navigator.plugins) {
+  for (p = 0; p < navigator.plugins.length; ++p) {
+    plug = navigator.plugins[p];
+
+    plugins.push(plug.description, plug.filename, plug.name, plug.version);
+
+    for (m = 0; m < plug.length; ++m) {
+      mime = plug.item(m);
+
+      plugins.push(mime.description, mime.suffixes, mime.type);
+    }
+  }
+}
+add_entropy(plugins.join(""));
 
 var id_name   = "data-seqrentry-id";
 var type_name = "data-seqrentry-type";
