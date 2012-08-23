@@ -76,7 +76,7 @@ class CreateProxy(ProxyBase):
 
     def _makeProxy(self):
         while True:
-            token = base64.b64encode(secureRandom(24, False), '-_')
+            token = base64.b64encode(secureRandom(9, False), '-_')
 
             if token not in proxies:
                 proxies[token] = { 'ct': None, 'ident': None, 'request': None, 'creds': None }
