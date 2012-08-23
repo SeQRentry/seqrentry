@@ -67,7 +67,7 @@ class CreateProxy(ProxyBase):
 
         self._sendResponse(request, 201, 'proxyCreated', {
             'token': token,
-            'proxy': 'http://localhost:8080/proxy' + EXTENSIONS[self._contentType] })
+            'proxy': 'http://localhost:8080/proxy' })
 
         return server.NOT_DONE_YET
 
