@@ -28,7 +28,7 @@ var Random = {
   // Gather entropy
   addEntropy: function(s) {
     Random._entropy = rstr_sha256(Random._entropy + s);
-    console.log(s, Random._entropy, Base64.encode(Random._entropy, Base64.urlCS));
+//    console.log(s, Random._entropy, Base64.encode(Random._entropy, Base64.urlCS));
   },
 
   // Sample a lesser and lesser frequent 'random' selection of events
@@ -43,13 +43,13 @@ var Random = {
     }
   },
 
-  randomString: function(lenth) {
+  randomString: function(length) {
     var result = [], i, r;
 
     for (i = 0; i < length; ++i) {
       r = i % 16;
 
-      result.push(String.fromCharCode((Math.round(255 * Math.random()) ^ entropy.charCodeAt(r)) & 255));
+      result.push(String.fromCharCode((Math.round(255 * Math.random()) ^ Random._entropy.charCodeAt(r)) & 255));
 
       if (r == 15) {
 	Random._entropy = Random._entropy.substring(16);

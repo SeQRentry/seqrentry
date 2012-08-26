@@ -3,6 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>SeQRentry Demo</title>
+    <link rel="stylesheet" type="text/css" href="seqrentry.css" />
+
     <script type="text/javascript">SEQRENTRY_PROXY_URL = "http://localhost:8080/";</script>
 
 <!--
@@ -23,9 +25,9 @@
      <fieldset>
        <legend>Register</legend>
 
-       <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
+       <input id="apa" type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
        <input type="email" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password" />
-       <input type="submit" value="Create account"/>
+       <input type="submit" value="Create account" data-seqrentry-type="submit" />
        <button style="width: 80px; height: 80px;" data-seqrentry-type="register"></button>
      </fieldset>
    </form>
@@ -37,7 +39,7 @@
        <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
        <input type="email" placeholder="Enter your current password" name="old" maxlength="20" data-seqrentry-type="old-password"  />
        <input type="email" placeholder="Enter your new password" name="password" maxlength="20" data-seqrentry-type="password"  />
-       <input type="submit" value="Update password"/>
+       <input type="submit" value="Update password" data-seqrentry-type="submit"/>
        <button style="width: 80px; height: 80px;" data-seqrentry-type="change"></button>
      </fieldset>
    </form>
@@ -48,10 +50,11 @@
 
        <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
        <input type="email" placeholder="Enter your secret password" name="password" data-seqrentry-type="password"  />
-       <input type="submit" value="Log in"/>
+       <input type="submit" value="Log in" data-seqrentry-type="submit"/>
        <button style="width: 80px; height: 80px;" data-seqrentry-type="login"></button>
      </fieldset>
    </form>
 
+   <br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/>
   </body>
 </html>

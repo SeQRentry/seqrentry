@@ -1,0 +1,31 @@
+
+#seqrentry-banner {
+    position:      fixed !important;
+    position:      absolute;
+    left:          0px;
+    width:         100%;
+    height:        300px;
+
+    margin:        0px;
+    padding:       0px; 
+
+    border-top:    2px solid black;
+    border-right:  0px;
+    border-bottom: 2px solid black;
+    border-left:   0px;
+
+    background:    white;
+    color:         black;
+}
+
+#seqrentry-qrcode {
+    display:       block;
+    cursor:        pointer;
+
+    margin-top:    0px;
+    margin-left:   auto;
+    margin-bottom: 0px;
+    margin-right:  auto;
+    padding:       22px;
+    border:        0px;
+}
