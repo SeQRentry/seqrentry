@@ -13,8 +13,8 @@
 
     <script src="base64.js"></script>
     <script src="qrcode.js"></script>
-    <script src="random.js"></script>
     <script src="sha256.js"></script>
+    <script src="random.js"></script>
     <script src="main.js"></script>
   </head>
 
@@ -25,8 +25,8 @@
      <fieldset>
        <legend>Register</legend>
 
-       <input id="apa" type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-       <input type="email" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password" />
+       <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
+       <input type="password" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password" />
        <input type="submit" value="Create account" data-seqrentry-type="submit" />
        <button style="width: 80px; height: 80px;" data-seqrentry-type="register"></button>
      </fieldset>
@@ -37,8 +37,8 @@
        <legend>Changle password</legend>
 
        <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-       <input type="email" placeholder="Enter your current password" name="old" maxlength="20" data-seqrentry-type="old-password"  />
-       <input type="email" placeholder="Enter your new password" name="password" maxlength="20" data-seqrentry-type="password"  />
+       <input type="password" placeholder="Enter your current password" name="old" maxlength="20" data-seqrentry-type="old-password"  />
+       <input type="password" placeholder="Enter your new password" name="password" maxlength="20" data-seqrentry-type="password"  />
        <input type="submit" value="Update password" data-seqrentry-type="submit"/>
        <button style="width: 80px; height: 80px;" data-seqrentry-type="change"></button>
      </fieldset>
@@ -49,7 +49,7 @@
        <legend>Log in</legend>
 
        <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-       <input type="email" placeholder="Enter your secret password" name="password" data-seqrentry-type="password"  />
+       <input type="password" placeholder="Enter your secret password" name="password" data-seqrentry-type="password"  />
        <input type="submit" value="Log in" data-seqrentry-type="submit"/>
        <button style="width: 80px; height: 80px;" data-seqrentry-type="login"></button>
      </fieldset>

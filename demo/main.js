@@ -11,28 +11,6 @@ window.addEventListener('load', function load(ev){
 
 }, false);
 
-// Add some entropy now
-Random.addEntropy(navigator.userAgent + document.cookie + 
-		  new Date().getTime() + Math.random() +
-		  window.innerWidth + window.innerHeight + window.screen.width + window.screen.height);
-
-// Add more entropy by serializing plugins, if possible (see https://panopticlick.eff.org/)
-var plugins = [], p, m, plug, mime;
-if (navigator.plugins) {
-  for (p = 0; p < navigator.plugins.length; ++p) {
-    plug = navigator.plugins[p];
-
-    plugins.push(plug.description, plug.filename, plug.name, plug.version);
-
-    for (m = 0; m < plug.length; ++m) {
-      mime = plug.item(m);
-
-      plugins.push(mime.description, mime.suffixes, mime.type);
-    }
-  }
-}
-Random.addEntropy(plugins.join(''));
-
 var id_name   = 'data-seqrentry-id';
 var type_name = 'data-seqrentry-type';
 
@@ -57,7 +35,17 @@ function install_button(el) {
   }
 }
 
-function enter_data(el, username, password) {
+function decode_password(id, password) {
+  var result = [];
+
+  var key  = Base64.decode(buttons[id].key, Base64.urlCS);
+  password = Base64.decode(password, Base64.urlCS);
+
+  for (var i = 0; i < password.length; ++i) {
+    result.push(password.charCodeAt(i) ^ key.charCodeAt(i));
+  }
+
+  return Base64.encode(result.join(''), Base64.urlCS);
 }
 
 function script_load(url) {
@@ -104,7 +92,7 @@ function make_url(id, proxy, token) {
     '#p=' + encodeURIComponent(proxy) +
     '&t=' + encodeURIComponent(token) +
     '&r=' + encodeURIComponent(realm) +
-    '&k=' + Base64.encode(Random.randomString(16), Base64.urlCS).replace(/=/g, '') + 
+    '&k=' + buttons[id].key + 
     (username ? '&u=' + encodeURIComponent(username) : '')
 }
 
@@ -146,7 +134,8 @@ function show_qr(id) {
 
   window.addEventListener('click', hide_qr, false);
 
-  can.addEventListener('click', function() {
+  can.addEventListener('click', function(ev) {
+    ev.stopPropagation();
     window.open(buttons[id].href);
   }, false);
 }
@@ -195,8 +184,9 @@ SeQRentry['proxyCreated'] = function(status, params) {
 
   hide_qr();
 
+  buttons[id].key  = Base64.encode(Random.randomString(16), Base64.urlCS).replace(/=/g, '')
   buttons[id].href = make_url(id, proxy, params['token']);
-  buttons[id].channel = proxy + '.js' + '?ident=' + params['ident'] + '&token=' + params['token'];
+  buttons[id].channel = proxy + '.js' + '?ident=' + id + '&token=' + params['token'];
 
   show_qr(id);
   poll_channel(id);
@@ -231,9 +221,29 @@ SeQRentry['proxyResponse'] = function(status, params) {
 
   hide_qr();
 
-  traverse_form(id, function(type, elem) {
+  var submit, form;
 
+  traverse_form(id, function(type, elem) {
+    if (type == 'form') {
+      form = elem;
+    }
+    else if (type == 'submit') {
+      submit = elem;
+    }
+    else if (type == 'username') {
+      elem.value = params['username'];
+    }
+    else if (type == 'password') {
+      elem.value = decode_password(id, params['password']);
+    }
   });
+
+  if (submit) {
+    submit.click();
+  }
+  else if (form) {
+    form.submit();
+  }
 }
 
 SeQRentry['install'] = function() {

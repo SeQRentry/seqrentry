@@ -4,31 +4,57 @@ var Random = {
   _ritardandoState: {},
 
   init: function() {
-    window.addEventListener("mousemove", function load(ev) {
-      Random.addRitardandoEntropy("mousemove", "" + ev.clientX + ev.clientY + ev.screenX + ev.screenY + ev.timeStamp);
+    window.addEventListener("scroll", function(ev) {
+      Random.addRitardandoEntropy(ev.type, ev.type + ev.timeStamp);
     });
 
-    window.addEventListener("deviceorientation", function load(ev) {
-      Random.addRitardandoEntropy("deviceorientation", "" + ev.alpha + ev.beta + ev.gamma + ev.timeStamp);
+    window.addEventListener("mousemove", function(ev) {
+      Random.addRitardandoEntropy(ev.type, ev.type + ev.clientX + ev.clientY + ev.screenX + ev.screenY + ev.timeStamp);
     });
 
-    window.addEventListener("devicemotion", function load(ev) {
+    window.addEventListener("deviceorientation", function(ev) {
+      Random.addRitardandoEntropy(ev.type, ev.type + ev.alpha + ev.beta + ev.gamma + ev.timeStamp);
+    });
+
+    window.addEventListener("devicemotion", function(ev) {
       var acc = ev.accelerationIncludingGravity;
-      
+
       if (acc) {
-	Random.addRitardandoEntropy("devicemotion", "" + acc.x + acc.y + acc.x);
+	Random.addRitardandoEntropy(ev.type, ev.type + acc.x + acc.y + acc.x);
       }
     });
 
-    window.addEventListener("keydown", function load(ev) {
-      Random.addRitardandoEntropy("keydown", "" + ev.keyCode + ev.which + ev.timeStamp);
+    window.addEventListener("keydown", function(ev) {
+      Random.addRitardandoEntropy(ev.type, ev.type + ev.keyCode + ev.which + ev.timeStamp);
     });
+
+    // Now add some entropy
+    Random.addEntropy(navigator.userAgent + document.cookie +
+		      window.innerWidth + window.innerHeight + window.screen.width + window.screen.height);
+
+    // Add more entropy by serializing plugins, if possible (see https://panopticlick.eff.org/)
+    var plugins = [], p, m, plug, mime;
+    if (navigator.plugins) {
+      for (p = 0; p < navigator.plugins.length; ++p) {
+	plug = navigator.plugins[p];
+
+	plugins.push(plug.description, plug.filename, plug.name, plug.version);
+
+	for (m = 0; m < plug.length; ++m) {
+	  mime = plug.item(m);
+
+	  plugins.push(mime.description, mime.suffixes, mime.type);
+	}
+      }
+    }
+
+    Random.addEntropy(plugins.join(''));
   },
 
   // Gather entropy
   addEntropy: function(s) {
-    Random._entropy = rstr_sha256(Random._entropy + s);
-//    console.log(s, Random._entropy, Base64.encode(Random._entropy, Base64.urlCS));
+    // (The current time and a sample from Math.random() is always mixed in)
+    Random._entropy = rstr_sha256(Random._entropy + s + new Date().getTime() + Math.random());
   },
 
   // Sample a lesser and lesser frequent 'random' selection of events
@@ -59,7 +85,7 @@ var Random = {
 
     // Discard used entropy bytes
     Random._entropy = Random._entropy.substring(16);
-    Random.addEntropy("" + new Date().getTime());
+    Random.addEntropy("");
 
     // Re-trigger frequent entropy gathering
     Random._ritardandoState = {};
@@ -67,3 +93,13 @@ var Random = {
     return result.join("");
   }
 };
+
+// Int entropy collector immediately
+Random.init();
+
+window.addEventListener('load', function load(ev){
+  window.removeEventListener('load', load, false);
+
+  // Add DOM load time to entropy
+  Random.addEntropy(ev.type);
+});
