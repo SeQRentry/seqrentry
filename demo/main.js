@@ -26,7 +26,8 @@ function install_button(el) {
     buttons[id] = { el: el, href: null, channel: null };
 
     el.setAttribute(id_name, id);
-    el.innerHTML = "<img src='../SeQRentry-logo-64.png' style='width: 100%;' />";
+    el.className += " seqrentry-button";
+    el.innerHTML = "<img src='../SeQRentry-logo-v2-64.png' style='width: 100%;' />";
     el.addEventListener('click', function(ev) { ev.stopPropagation(); create_channel(id); }, false);
     
     if (el.localName == 'button' && !el.hasAttribute('onclick')) {
@@ -106,14 +107,14 @@ function show_qr(id) {
   var can = document.createElement('canvas');
 
   div.id = 'seqrentry-banner';
-  div.style.top = (window.innerHeight - 300) / 2 + "px";
+  div.style.top = (window.innerHeight - 400) / 2 + "px";
   div.title = 'Click to cancel';
 
   can.id = 'seqrentry-qrcode';
   can.title = 'Scan to activate!';
 
-  can.width  = 256;
-  can.height = 256;
+  can.width  = 350;
+  can.height = 350;
 
   var ctx = can.getContext('2d');
   var dx  = can.width / qrcode.getModuleCount();
