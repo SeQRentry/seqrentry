@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 
+import argparse
 import base64
 import json
-from xml.etree import ElementTree
-from twisted.web import server, resource
+import sys
+
 from twisted.internet import reactor
+from twisted.internet.error import BindError
 from twisted.python.randbytes import secureRandom
+from twisted.web import server, resource
+from xml.etree import ElementTree
 
 PROXY_LIFETIME = 30
 PROXY_WAITTIME = 10
@@ -65,9 +69,12 @@ class CreateProxy(ProxyBase):
     def render_GET(self, request):
         token = self._makeProxy()
 
+        proxy_url = ''.join(['https' if request.isSecure() else 'http',
+                             '://', request.requestHeaders.getRawHeaders('host')[0], '/proxy'])
+
         self._sendResponse(request, 201, 'proxyCreated', {
             'token': token,
-            'proxy': 'http://localhost:8080/proxy' })
+            'proxy': args.proxy_url or proxy_url })
 
         return server.NOT_DONE_YET
 
@@ -102,8 +109,9 @@ class Proxy(ProxyBase):
 
     def render_POST(self, request):
         token = request.args.get('token', [''])[0]
-        creds = { 'username': request.args.get('username', [''])[0], 
-                  'password': request.args.get('password', [''])[0] }
+        creds = { 'username':    request.args.get('username',    [''])[0],
+                  'password':    request.args.get('password',    [''])[0],
+                  'newPassword': request.args.get('newPassword', [''])[0]}
 
         if token in proxies:
             proxy = proxies[token]
@@ -131,7 +139,7 @@ class Proxy(ProxyBase):
                 proxy['ct']      = self._contentType
                 proxy['ident']   = request.args.get('ident', [''])[0]
                 proxy['request'] = request
-                
+
                 if proxy['creds']:
                     self._sendProxyResponse(token, 200, 'proxyResponse', proxy['creds']);
                     proxy['creds'] = None
@@ -149,16 +157,43 @@ class Proxy(ProxyBase):
             if proxy['request']:
                 self._sendProxyResponse(token, 408, 'proxyTimeout', {})
 
-root = resource.Resource()
 
-root.putChild('create-proxy.js', CreateProxy('text/javascript'))
-root.putChild('create-proxy.json', CreateProxy('application/json'))
-root.putChild('create-proxy.xml', CreateProxy('application/xml'))
+parser = argparse.ArgumentParser(description='Start the SeQRentry proxy.', add_help = False)
+parser.add_argument('-?', '-h', '--help', help='Display this message and exit', action='store_true', dest='help')
+parser.add_argument('-p', '--proxy-url', metavar = 'URL', help='Override proxy URL returned to clients', dest='proxy_url')
+parser.add_argument('-H, --http', default = '*:80', metavar = '[host:]port',
+                    help = 'Interface address and port to bind to (default: port 80 on all interfaces)',
+                    dest='http')
+args = parser.parse_args()
 
-root.putChild('proxy.js', Proxy('text/javascript'))
-root.putChild('proxy.json', Proxy('application/json'))
-root.putChild('proxy.xml', Proxy('application/xml'))
+if args.help:
+    parser.print_help()
+    sys.exit(0)
 
-site = server.Site(root)
-reactor.listenTCP(8080, site)
-reactor.run()
+http = args.http.split(':', 1)
+
+if len(http) == 1:
+    http.insert(0, '');
+
+if http[0] == '*':
+    http[0] = ''
+
+try:
+    root = resource.Resource()
+
+    root.putChild('create-proxy.js', CreateProxy('text/javascript'))
+    root.putChild('create-proxy.json', CreateProxy('application/json'))
+    root.putChild('create-proxy.xml', CreateProxy('application/xml'))
+
+    root.putChild('proxy.js', Proxy('text/javascript'))
+    root.putChild('proxy.json', Proxy('application/json'))
+    root.putChild('proxy.xml', Proxy('application/xml'))
+
+    site = server.Site(root)
+    reactor.listenTCP(int(http[1]), site, 50, http[0])
+    reactor.run()
+
+
+
+except BindError as ex:
+    print ex
