@@ -46,7 +46,7 @@ function decode_password(id, password) {
     result.push(password.charCodeAt(i) ^ key.charCodeAt(i));
   }
 
-  return Base64.encode(result.join(''), Base64.urlCS);
+  return Base64.encode(result.join(''), Base64.urlCS).replace(/=+$/, '');
 }
 
 function script_load(url) {
@@ -185,7 +185,7 @@ SeQRentry['proxyCreated'] = function(status, params) {
 
   hide_qr();
 
-  buttons[id].key  = Base64.encode(Random.randomString(16), Base64.urlCS).replace(/=/g, '')
+  buttons[id].key  = Base64.encode(Random.randomString(16), Base64.urlCS).replace(/=+$/, '')
   buttons[id].href = make_url(id, proxy, params['token']);
   buttons[id].channel = proxy + '.js' + '?ident=' + id + '&token=' + params['token'];
 
