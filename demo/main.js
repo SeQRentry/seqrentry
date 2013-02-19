@@ -72,8 +72,6 @@ function close_all_channels() {
       buttons[i].channel = null;
     }
   }
-
-  console.log(buttons);
 }
 
 function make_url(id, proxy, token) {
@@ -159,7 +157,7 @@ function traverse_form(id, fn) {
   var form = elem.form;
   var f;
 
-  while (!form && elem.parenNode) {
+  while (!form && elem.parentNode) {
     elem = elem.parentNode;
     form = elem.form || ((elem.localName == 'form' || elem.getAttribute(type_name) == 'form') ? elem : null);
   }
