@@ -11,8 +11,8 @@ from twisted.python.randbytes import secureRandom
 from twisted.web import server, resource
 from xml.etree import ElementTree
 
-PROXY_LIFETIME = 30
-PROXY_WAITTIME = 10
+PROXY_LIFETIME = 10 * 60
+PROXY_WAITTIME = 30
 
 EXTENSIONS = { 'application/json': '.json',
                'application/xml':  '.xml',
