@@ -115,13 +115,14 @@ class Proxy(ProxyBase):
 
         if token in proxies:
             proxy = proxies[token]
+            online = proxy['request']
 
             if proxy['request']:
                 self._sendProxyResponse(token, 200, 'proxyResponse', creds);
             else:
                 proxy['creds'] = creds;
 
-            self._sendResponse(request, 200 if proxy['request'] else 202, 'proxyNotified', {})
+            self._sendResponse(request, 200 if online else 202, 'proxyNotified', {})
         else:
             self._sendResponse(request, 403, 'proxyNotFound', {})
 
