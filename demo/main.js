@@ -5,10 +5,6 @@ window['SeQRentry'] = {};
 window.addEventListener('load', function load(ev){
   window.removeEventListener('load', load, false);
   SeQRentry['install']();
-
-  Random.init();
-  Random.addEntropy('' + new Date().getTime());
-
 }, false);
 
 var id_name   = 'data-seqrentry-id';
