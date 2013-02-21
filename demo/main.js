@@ -46,12 +46,19 @@ function decode_password(id, password) {
 }
 
 function script_load(url) {
-  var script = document.getElementById('seqrentry-script');
-  if (script) script.parentNode.removeChild(script);
+  script_cancel();
 
-  script = document.body.appendChild(document.createElement('script'));
+  var script = document.body.appendChild(document.createElement('script'));
   script.setAttribute('id', 'seqrentry-script');
   script.setAttribute('src', url)
+}
+
+function script_cancel() {
+  var script = document.getElementById('seqrentry-script');
+
+  if (script) {
+    script.parentNode.removeChild(script);
+  }
 }
 
 function create_channel(id) {
@@ -68,6 +75,8 @@ function close_all_channels() {
       buttons[i].channel = null;
     }
   }
+
+  script_cancel();
 }
 
 function make_url(id, proxy, token) {
