@@ -158,43 +158,45 @@ class Proxy(ProxyBase):
             if proxy['request']:
                 self._sendProxyResponse(token, 408, 'proxyTimeout', {})
 
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Start the SeQRentry proxy.', add_help = False)
+    parser.add_argument('-?', '-h', '--help', help='Display this message and exit', action='store_true', dest='help')
+    parser.add_argument('-p', '--proxy-url', metavar = 'URL', help='Override proxy URL returned to clients', dest='proxy_url')
+    parser.add_argument('-H, --http', default = '*:8080', metavar = '[host:]port',
+                        help = 'Listen for HTTP requests on this interface address and port (default: port 8080 on all interfaces)',
+                        dest='http')
+    args = parser.parse_args()
 
-parser = argparse.ArgumentParser(description='Start the SeQRentry proxy.', add_help = False)
-parser.add_argument('-?', '-h', '--help', help='Display this message and exit', action='store_true', dest='help')
-parser.add_argument('-p', '--proxy-url', metavar = 'URL', help='Override proxy URL returned to clients', dest='proxy_url')
-parser.add_argument('-H, --http', default = '*:80', metavar = '[host:]port',
-                    help = 'Interface address and port to bind to (default: port 80 on all interfaces)',
-                    dest='http')
-args = parser.parse_args()
+    if args.help:
+        parser.print_help()
+        sys.exit(0)
 
-if args.help:
-    parser.print_help()
-    sys.exit(0)
+    http = args.http.split(':', 1)
 
-http = args.http.split(':', 1)
+    if len(http) == 1:
+        http.insert(0, '');
 
-if len(http) == 1:
-    http.insert(0, '');
+    if http[0] == '*':
+        http[0] = ''
 
-if http[0] == '*':
-    http[0] = ''
+    try:
+        root = resource.Resource()
 
-try:
-    root = resource.Resource()
+        root.putChild('create-proxy.js', CreateProxy('text/javascript'))
+        root.putChild('create-proxy.json', CreateProxy('application/json'))
+        root.putChild('create-proxy.xml', CreateProxy('application/xml'))
 
-    root.putChild('create-proxy.js', CreateProxy('text/javascript'))
-    root.putChild('create-proxy.json', CreateProxy('application/json'))
-    root.putChild('create-proxy.xml', CreateProxy('application/xml'))
+        root.putChild('proxy.js', Proxy('text/javascript'))
+        root.putChild('proxy.json', Proxy('application/json'))
+        root.putChild('proxy.xml', Proxy('application/xml'))
 
-    root.putChild('proxy.js', Proxy('text/javascript'))
-    root.putChild('proxy.json', Proxy('application/json'))
-    root.putChild('proxy.xml', Proxy('application/xml'))
+        site = server.Site(root)
+        reactor.listenTCP(int(http[1]), site, 50, http[0])
 
-    site = server.Site(root)
-    reactor.listenTCP(int(http[1]), site, 50, http[0])
-    reactor.run()
+        print 'Listening for HTTP requests on {0}.'.format(':'.join(http))
+        print 'Press Control-C to exit.'
 
-
-
-except BindError as ex:
-    print ex
+        reactor.run()
+        print
+    except BindError as ex:
+        print ex
