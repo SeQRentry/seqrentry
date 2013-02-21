@@ -88,7 +88,7 @@ function make_url(id, proxy, token) {
       realm = elem.getAttribute('seqrentry-realm') || realm;
     }
     else if (type == 'username') {
-      username = elem.value;
+      username = elem.getAttribute('seqrentry-value') || elem.value;
     }
   });
 
