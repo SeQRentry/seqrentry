@@ -110,7 +110,7 @@ function show_qr(id) {
   var can = document.createElement('canvas');
 
   div.id = 'seqrentry-banner';
-  div.style.top = (window.innerHeight - 400) / 2 + "px";
+  div.style.top = (window.innerHeight - 440 - 6) / 2 + "px";
   div.title = 'Click to cancel';
 
   can.id = 'seqrentry-qrcode';
