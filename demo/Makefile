@@ -6,7 +6,7 @@ CLOSURE	= http://closure-compiler.appspot.com/compile
 all:	seqrentry.js
 
 clean:
-	$(RM) seqrentry.js seqrentry-all.js
+	$(RM) seqrentry.js
 
 seqrentry.js: base64.js qrcode.js sha256.js random.js main.js 
 	cat $^ | \
