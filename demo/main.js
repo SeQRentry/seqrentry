@@ -7,24 +7,24 @@ window.addEventListener('load', function load(ev){
     SeQRentry['install']();
 }, false);
 
-var SCRIPT_ID     = 'seqrentry-script';
-var BANNER_ID     = 'seqrentry-banner';
-var QRCODE_ID     = 'seqrentry-qrcode';
+/** @const */ var SCRIPT_ID     = 'seqrentry-script';
+/** @const */ var BANNER_ID     = 'seqrentry-banner';
+/** @const */ var QRCODE_ID     = 'seqrentry-qrcode';
 
-var BANNER_HEIGHT = 440 + 6;
+/** @const */ var BANNER_HEIGHT = 440 + 6;
 
-var TYPE_ATTR     = 'data-seqrentry-type';     // Element type: form|username|password|register|change|login
-var REALM_ATTR    = 'data-seqrentry-realm';    // Authenticaiton realm
-var USERNAME_ATTR = 'data-seqrentry-username'; // Override el.value
-var ONSET_ATTR    = 'data-seqrentry-func';     // function(type, value) callback
+/** @const */ var TYPE_ATTR     = 'data-seqrentry-type';     // Element type: form|username|password|register|change|login
+/** @const */ var REALM_ATTR    = 'data-seqrentry-realm';    // Authenticaiton realm
+/** @const */ var USERNAME_ATTR = 'data-seqrentry-username'; // Override el.value
+/** @const */ var ONSET_ATTR    = 'data-seqrentry-func';     // function(type, value) callback
 
-var BUTTON_CLASS  = 'seqrentry-button';
-var BUTTON_IMAGE  = '../SeQRentry-logo-v2-64.png';
+/** @const */ var BUTTON_CLASS  = 'seqrentry-button';
+/** @const */ var BUTTON_IMAGE  = '../SeQRentry-logo-v2-64.png';
 
-var SEQRENTRY_URL = 'http://seqrentry.net/';
-var PROXY_URL     = 'http://seqrentry.net/';
+/** @const */ var SEQRENTRY_URL = 'http://seqrentry.net/';
+/** @const */ var PROXY_URL     = 'http://seqrentry.net/';
 
-var channels   = {}
+var channels   = /** @dict */ {}
 var channel_id = 0;
 
 function install_button(elem) {
