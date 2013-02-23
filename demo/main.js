@@ -138,7 +138,10 @@ function show_qr(channel) {
     div.appendChild(can);
     document.body.insertBefore(div, document.body.firstChild);
 
-    window.addEventListener('click', hide_qr, false);
+    window.addEventListener('click', function() {
+        hide_qr();
+        close_all_channels();
+    }, false);
 
     can.addEventListener('click', function(ev) {
         ev.stopPropagation();
@@ -180,11 +183,11 @@ function traverse_form(elem, fn) {
 }
 
 SeQRentry['proxyCreated'] = function(status, params) {
-    console.log('SeQRentry.proxyCreated', status, params);
-
     var id      = params['ident'];
     var proxy   = params['proxy'];
     var channel = channels[id];
+
+    console.log('SeQRentry.proxyCreated', status, params, channel);
 
     if (channel) {
         hide_qr();
@@ -199,10 +202,10 @@ SeQRentry['proxyCreated'] = function(status, params) {
 };
 
 SeQRentry['proxyTimeout'] = function(status, params) {
-    console.log('SeQRentry.proxyTimeout', status, params);
-
     var id      = params['ident'];
     var channel = channels[id];
+
+    console.log('SeQRentry.proxyTimeout', status, params, channel);
 
     if (channel) {
         // Unless channel has been cancelled, poll it again
@@ -211,10 +214,10 @@ SeQRentry['proxyTimeout'] = function(status, params) {
 }
 
 SeQRentry['proxyDeleted'] = SeQRentry['proxyNotFound'] = SeQRentry['proxyInUse'] = function(status, params) {
-    console.log('SeQRentry.proxyDeleted/proxyNotFound/proxyInUse', status, params);
-
     var id      = params['ident'];
     var channel = channels[id];
+
+    console.log('SeQRentry.proxyDeleted/proxyNotFound/proxyInUse', status, params, channel);
 
     if (channel) {
         // Unless channel has been cancelled, create a new one and delete the old
@@ -224,10 +227,10 @@ SeQRentry['proxyDeleted'] = SeQRentry['proxyNotFound'] = SeQRentry['proxyInUse']
 }
 
 SeQRentry['proxyResponse'] = function(status, params) {
-    console.log('SeQRentry.proxyResponse', status, params);
-
     var id      = params['ident'];
     var channel = channels[id];
+
+    console.log('SeQRentry.proxyResponse', status, params, channel);
 
     if (channel) {
         hide_qr();
