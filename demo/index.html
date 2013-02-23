@@ -2,59 +2,105 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>SeQRentry Demo</title>
-    <link rel="stylesheet" type="text/css" href="seqrentry.css" />
+    <title>SeQRentry.NET</title>
+    <meta name='viewport' content='width=device-width, initial-scale=0.8' />
 
+    <link rel='stylesheet' type='text/css' href='main.css' />
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Oregano:400italic' />
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200italic,200' />
+
+    <link rel="stylesheet" type="text/css" href="lib/seqrentry-0.9.css" />
     <script type="text/javascript">SEQRENTRY_PROXY_URL = "http://localhost:8080/";</script>
-
-<!--
-    <script type="text/javascript" src="seqrentry.js" async="async"></script>
--->
-
-    <script src="base64.js"></script>
-    <script src="qrcode.js"></script>
-    <script src="sha256.js"></script>
-    <script src="random.js"></script>
-    <script src="main.js"></script>
+    <script type="text/javascript" src="lib/seqrentry-0.9.js" async="async"></script>
   </head>
 
   <body>
-   <h1>SeQRentry Demo</h1>
+    <article id="main" class="active">
+      <header>
+        <hgroup>
+          <h1>SeQRentry.NET</h1>
+          <h2>Secure web accounts</h2>
+        </hgroup>
+      </header>
 
-   <form>
-     <fieldset>
-       <legend>Register</legend>
+      <section>
+        <h1>Secure ... what?</h1>
 
-       <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-       <input type="password" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password" />
-       <input type="submit" value="Create account" data-seqrentry-type="submit" />
-       <div style="display: inline-block; width: 80px; height: 80px" data-seqrentry-type="register"></div>
-     </fieldset>
-   </form>
+        <p><cite>SeQRentry</cite> is a highly secure, QR-based method
+        to sign in to web sites online by using your cell phone's
+        camera. The phone app automatically generates unique,
+        cryptographically strong passwords for every site you enable
+        &#x2014; <cite>SeQRentry</cite> passwords are <em>never</em>
+        reused across different accounts.  Yet, the only thing you
+        need to remember in order to log in is your phone and a
+        personal PIN code.</p>
 
-   <form>
-     <fieldset>
-       <legend>Changle password</legend>
+        <p>Any web site that uses a username and password can be
+        <cite>SeQRentry</cite>-enabled within minutes. The system also
+        works well with the browser's built-in ability to remember
+        account names and passwords. Strong, unique passwords on the
+        Internet have never been easier.</p>
 
-       <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-       <input type="password" placeholder="Enter your current password" name="old" maxlength="20" data-seqrentry-type="old-password"  />
-       <input type="password" placeholder="Enter your new password" name="password" maxlength="20" data-seqrentry-type="password"  />
-       <input type="submit" value="Update password" data-seqrentry-type="submit"/>
-       <button style="width: 80px; height: 80px;" data-seqrentry-type="change"></button>
-     </fieldset>
-   </form>
+        <p>Head over to the <a href="#demo">demo section</a> to see it
+        in action!</p>
+      </section>
+    </article>
 
-   <form>
-     <fieldset>
-       <legend>Log in</legend>
+    <article id="demo" class="inactive">
+      <header>
+        <hgroup>
+          <h1>SeQRentry.NET</h1>
+          <h2>Demo</h2>
+        </hgroup>
+      </header>
 
-       <input type="email" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-       <input type="password" placeholder="Enter your secret password" name="password" data-seqrentry-type="password"  />
-       <input type="submit" value="Log in" data-seqrentry-type="submit"/>
-       <button style="width: 80px; height: 80px;" data-seqrentry-type="login"></button>
-     </fieldset>
-   </form>
+      <section>
+        <form id="log">
+          <fieldset>
+            <legend>Event log</legend>
 
-   <br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/><br/><hr/>
+            <div id="output">
+            </div>
+
+            <input type="button" value="Clear" onclick='document.getElementById("output").innerHTML = ""'/>
+
+          </fieldset>
+        </form>
+
+        <form>
+          <fieldset>
+            <legend>Register</legend>
+
+            <input type="text" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
+            <input type="password" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password" />
+            <input type="submit" value="Create account" data-seqrentry-type="submit" />
+            <div style="display: inline-block; width: 80px; height: 80px" data-seqrentry-type="register"></div>
+          </fieldset>
+        </form>
+
+        <form>
+          <fieldset>
+            <legend>Changle password</legend>
+
+            <input type="text" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
+            <input type="password" placeholder="Enter your current password" name="old" maxlength="20" data-seqrentry-type="old-password"  />
+            <input type="password" placeholder="Enter your new password" name="password" maxlength="20" data-seqrentry-type="password"  />
+            <input type="submit" value="Update password" data-seqrentry-type="submit"/>
+            <button style="width: 80px; height: 80px;" data-seqrentry-type="change"></button>
+          </fieldset>
+        </form>
+
+        <form>
+          <fieldset>
+            <legend>Log in</legend>
+
+            <input type="text" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
+            <input type="password" placeholder="Enter your secret password" name="password" data-seqrentry-type="password"  />
+            <input type="submit" value="Log in" data-seqrentry-type="submit"/>
+            <button style="width: 80px; height: 80px;" data-seqrentry-type="login"></button>
+          </fieldset>
+        </form>
+      </section>
+    </article>
   </body>
 </html>

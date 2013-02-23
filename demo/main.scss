@@ -1,0 +1,89 @@
+
+@import 'reset';
+
+$fill: #7EA7D8;
+$body: #fcffff;
+$back: #fffff8;
+$text: #266;
+
+body {
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 200;
+
+    margin: 0px auto 0px auto;
+
+    background-color: $body;
+    color:            $text;
+    max-width:        75em;
+    padding:          15px;
+}
+
+article        { display: none;  }
+article.active { display: block; }
+
+header {
+    hgroup {
+        display:          inline-block;
+        border:           2px solid $text;
+        margin-left:      -30px;
+        padding:          20px 30px 20px 30px;
+        border-radius:    15px;
+        background-color: $fill;
+        color:            $back;
+    }
+
+    h1 {
+        font-family: 'Oregano', cursive; 
+        font-weight: 400; 
+        font-style:  italic;
+        font-size:   48px;
+    }
+
+    h2 {
+        font-style:  normal;
+        font-weight: 100;
+        font-size:   32px;
+
+        text-align: right;
+    }
+}
+
+section {
+    margin-top:       -15px;
+    padding:          25px 10px 10px 10px;
+    clear:            both;
+    border:           2px solid $text;
+    border-radius:    15px;
+    background-color: $back;
+
+    h1 {
+        font-size:     32px;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size:     18px;
+        margin-top:    10px;
+        margin-bottom: 10px;
+        line-height:   1.5;
+    }
+
+}
+
+cite, em {
+    font-style:  italic;
+}
+
+fieldset {
+  padding:       10px;
+  border:        1px solid;
+  border-radius: 5px;
+}
+
+#log {
+  float:        right;
+  padding-left: 10px;
+  width:        20em;
+  height:       30em;
+}
