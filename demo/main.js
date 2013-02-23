@@ -11,7 +11,7 @@ window.addEventListener('load', function load(ev){
 /** @const */ var BANNER_ID     = 'seqrentry-banner';
 /** @const */ var QRCODE_ID     = 'seqrentry-qrcode';
 
-/** @const */ var BANNER_HEIGHT = 440 + 6;
+/** @const */ var BANNER_HEIGHT = 440 + 4;
 
 /** @const */ var TYPE_ATTR     = 'data-seqrentry-type';     // Element type: form|username|password|register|change|login
 /** @const */ var REALM_ATTR    = 'data-seqrentry-realm';    // Authenticaiton realm
