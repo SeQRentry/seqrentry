@@ -16,7 +16,7 @@ window.addEventListener('load', function load(ev){
 /** @const */ var TYPE_ATTR     = 'data-seqrentry-type';     // Element type: form|username|password|register|change|login
 /** @const */ var REALM_ATTR    = 'data-seqrentry-realm';    // Authenticaiton realm
 /** @const */ var USERNAME_ATTR = 'data-seqrentry-username'; // Override el.value
-/** @const */ var ONSET_ATTR    = 'data-seqrentry-func';     // function(type, value) callback
+/** @const */ var FUNC_ATTR     = 'data-seqrentry-func';     // function(type, value) callback
 
 /** @const */ var BUTTON_CLASS   = 'seqrentry-button';
 /** @const */ var BUTTON_IMAGE   = '../SeQRentry-logo-v2-64.png';
@@ -145,6 +145,13 @@ function show_qr(channel) {
 
         hide_qr();
         show_spinner(channel, false);
+
+        traverse_form(channel.button, function(type, elem) {
+            if (type == 'form') {
+                call_func(type, elem, 'cancel');
+                return false;
+            }
+        });
         
         close_all_channels();
     }, false);
@@ -182,15 +189,27 @@ function traverse_form(elem, fn) {
     }
 
     if (form) {
-        fn('form', form);
+        if (fn('form', form) !== false) {
+            for (f = 0; f < form.length; ++f) {
+                var type = form[f].getAttribute(TYPE_ATTR);
 
-        for (f = 0; f < form.length; ++f) {
-            var type = form[f].getAttribute(TYPE_ATTR);
-
-            if (type) {
-	        fn(type, form[f]);
+                if (type) {
+	            if (fn(type, form[f]) === false) {
+                        break;
+                    }
+                }
             }
         }
+    }
+}
+
+// Code to call the 'data-seqrentry-func' callback
+function call_func(type, elem, value) {
+    var rc = new Function('type', 'value', elem.getAttribute(FUNC_ATTR)).call(elem, type, value);
+
+    if (rc !== false) {
+        value = rc !== undefined ? rc : value;
+        elem.value = value;
     }
 }
 
@@ -207,6 +226,14 @@ SeQRentry['proxyCreated'] = function(status, params) {
         channel.url = proxy + '.js' + '?ident=' + id + '&token=' + params['token'];
 
         show_qr(channel);
+
+        traverse_form(channel.button, function(type, elem) {
+            if (type == 'form') {
+                call_func(type, elem, 'open');
+                return false;
+            }
+        });
+
         poll_channel(channel);
     }
 };
@@ -255,12 +282,19 @@ SeQRentry['proxyResponse'] = function(status, params) {
                 form = elem;
             }
             else if (type == 'username') {
-                elem.value = params['username'];
+                call_func(type, elem, params['username']);
             }
             else if (type == 'password') {
-                elem.value = decode_password(channel.key, params['password']);
+                call_func(type, elem, decode_password(channel.key, params['password']));
+            }
+            else if (type == 'new-password') {
+                call_func(type, elem, decode_password(channel.key, params['new-password']));
             }
         });
+
+        if (form) {
+            call_func('form', form, 'success');
+        }
     }
 }
 
