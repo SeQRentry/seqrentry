@@ -18,8 +18,9 @@ window.addEventListener('load', function load(ev){
 /** @const */ var USERNAME_ATTR = 'data-seqrentry-username'; // Override el.value
 /** @const */ var ONSET_ATTR    = 'data-seqrentry-func';     // function(type, value) callback
 
-/** @const */ var BUTTON_CLASS  = 'seqrentry-button';
-/** @const */ var BUTTON_IMAGE  = '../SeQRentry-logo-v2-64.png';
+/** @const */ var BUTTON_CLASS   = 'seqrentry-button';
+/** @const */ var BUTTON_IMAGE   = '../SeQRentry-logo-v2-64.png';
+/** @const */ var BUTTON_SPINNER = 'lib/spinner.gif';
 
 /** @const */ var SEQRENTRY_URL = 'http://seqrentry.net/';
 /** @const */ var PROXY_URL     = 'http://seqrentry.net/';
@@ -29,7 +30,7 @@ var channel_id = 0;
 
 function install_button(elem) {
     elem.className += ' ' + BUTTON_CLASS;
-    elem.innerHTML = '<img src="' + BUTTON_IMAGE + '" style="width: 100%;" />';
+    elem.innerHTML =  '<img src="' + BUTTON_IMAGE + '" /><img src="' + BUTTON_SPINNER + '" style="display: none;" />';
     elem.addEventListener('click', function(ev) { ev.stopPropagation(); create_channel(elem); }, false);
 
     if (elem.localName == 'button' && !elem.hasAttribute('onclick')) {
@@ -66,10 +67,11 @@ function script_cancel() {
     }
 }
 
-function create_channel(buttom) {
+function create_channel(button) {
     var id = String(++channel_id);
-    channels[id] = { url: null, button: buttom, key: null, qr: null }
+    channels[id] = { url: null, button: button, key: null, qr: null }
     script_load((window['SEQRENTRY_PROXY_URL'] || PROXY_URL) + 'create-proxy.js?ident=' + id);
+    show_spinner(channels[id], true);
 }
 
 function poll_channel(channel) {
@@ -138,8 +140,12 @@ function show_qr(channel) {
     div.appendChild(can);
     document.body.insertBefore(div, document.body.firstChild);
 
-    window.addEventListener('click', function() {
+    window.addEventListener('click', function click_hide(ev) {
+        document.removeEventListener('click', click_hide, false);
+
         hide_qr();
+        show_spinner(channel, false);
+        
         close_all_channels();
     }, false);
 
@@ -150,13 +156,19 @@ function show_qr(channel) {
 }
 
 function hide_qr() {
-    // Remove QR banner and close all channels
-    document.removeEventListener('click', hide_qr, false);
-
+    // Remove QR banner
     var banner = document.getElementById(BANNER_ID);
 
     if (banner) {
         banner.parentNode.removeChild(banner);
+    }
+}
+
+function show_spinner(channel, on) {
+    var img = channel.button && channel.button.childNodes.item(1);
+
+    if (img) {
+        img.style.display = on ? "inline-block" : "none";
     }
 }
 
@@ -190,8 +202,6 @@ SeQRentry['proxyCreated'] = function(status, params) {
     console.log('SeQRentry.proxyCreated', status, params, channel);
 
     if (channel) {
-        hide_qr();
-
         channel.key = Base64.encode(Random.randomString(16), Base64.urlCS).replace(/=+$/, '')
         channel.qr  = make_url(channel.button, proxy, params['token'], channel.key);
         channel.url = proxy + '.js' + '?ident=' + id + '&token=' + params['token'];
@@ -234,6 +244,7 @@ SeQRentry['proxyResponse'] = function(status, params) {
 
     if (channel) {
         hide_qr();
+        show_spinner(channel, false);
 
         close_all_channels();
 
