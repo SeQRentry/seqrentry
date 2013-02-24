@@ -1,7 +1,7 @@
 
 TARGETS	= main.css
 
-SASS	= sass --no-cache
+SASS	= sass --no-cache --style=compressed
 
 all:	$(TARGETS)
 

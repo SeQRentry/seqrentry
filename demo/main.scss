@@ -1,26 +1,47 @@
 
 @import 'reset';
 
+@mixin prefix($name, $value) {
+  #{$name}:         $value;
+  -moz-#{$name}:    $value;
+  -webkit-#{$name}: $value;
+}
+
 $fill: #7EA7D8;
 $body: #fcffff;
 $back: #fffff8;
-$text: #266;
+$text: #033;
+
+html { 
+    overflow-y: scroll;
+}
 
 body {
     font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
     font-style: normal;
-    font-weight: 200;
+    font-weight: 300;
 
     margin: 0px auto 0px auto;
 
     background-color: $body;
     color:            $text;
     max-width:        75em;
-    padding:          15px;
+    padding:          0px 15px 15px 15px;
 }
 
-article        { display: none;  }
-article.active { display: block; }
+a         { color: $fill; }
+a:link    { text-decoration:none; }
+a:visited { text-decoration:none; }
+a:hover   { text-decoration:underline; }
+a:active  { text-decoration:underline; }
+
+article { 
+    display:     none; 
+    padding-top: 10px;
+}
+
+article.active   { display: block; }
+article.inactive { display: none;  }
 
 header {
     hgroup {
@@ -30,6 +51,10 @@ header {
         padding:          20px 30px 20px 30px;
         border-radius:    15px;
         background-color: $fill;
+        color:            $back;
+    }
+
+    a {
         color:            $back;
     }
 
@@ -63,32 +88,46 @@ section {
     }
 
     p {
-        font-size:     18px;
+        font-size:     20px;
         margin-top:    0px;
-        margin-bottom: 27px;
+        margin-bottom: 1.5*20px;
         line-height:   1.5;
     }
 
 }
 
 .columns {
-    -moz-columns:    30em auto;
-    -webkit-columns: 30em auto;
+    @include prefix(columns, 30em auto);
 }
 
 cite, em {
     font-style:  italic;
 }
 
-fieldset {
-  padding:       10px;
-  border:        1px solid;
-  border-radius: 5px;
+form {
+    margin-bottom: 30px;
 }
 
-#log {
-  float:        right;
-  padding-left: 10px;
-  width:        20em;
-  height:       30em;
+fieldset {
+    padding:       10px;
+    border:        1px solid;
+    border-radius: 5px;
+
+    break-inside:  avoid;
+    @include prefix(column-break-inside, avoid);
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+.form {
+    text-align:   right;
+    float:        left;
+}
+
+.sqbutton {
+    float:         left;
+    margin-left:   10px;
+    margin-right:  10px;
 }

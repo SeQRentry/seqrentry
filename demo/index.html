@@ -6,11 +6,15 @@
     <meta name='viewport' content='width=device-width, initial-scale=0.8' />
 
     <link rel='stylesheet' type='text/css' href='main.css' />
-    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Oregano:400italic' />
-    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200italic,200' />
+    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Oregano:400italic' />
+    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic' />
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="jquery.ba-hashchange.min.js"></script>
+    <script type="text/javascript" async="async" src="index.js"></script>
 
     <link rel="stylesheet" type="text/css" href="lib/seqrentry-0.9.css" />
-    <script type="text/javascript">SEQRENTRY_PROXY_URL = "http://localhost:8080/";</script>
+    <script type="text/javascript">SEQRENTRY_PROXY_URL = "http://192.168.1.244:8080/";</script>
     <script type="text/javascript" src="lib/seqrentry-0.9.js" async="async"></script>
   </head>
 
@@ -18,7 +22,7 @@
     <article id="main" class="active">
       <header>
         <hgroup>
-          <h1>SeQRentry.NET</h1>
+          <h1><a href='#'>SeQRentry.NET</a></h1>
           <h2>Secure web accounts</h2>
         </hgroup>
       </header>
@@ -39,69 +43,149 @@
         <p>Any web site that uses a username and password can be
         <cite>SeQRentry</cite>-enabled within minutes. The system also
         works well with the browser's built-in ability to remember
-        account names and passwords. Strong, unique passwords on the
-        Internet have never been easier.</p>
+        account names and passwords.</p>
 
-        <p>Head over to the <a href="#demo">demo section</a> to see it
-        in action!</p>
+        <p>Strong, unique passwords on the Internet have never been
+        easier, and now there really are no excuses for reusing the
+        same password over and over again. Let's make the web a better
+        place!</p>
+
+        <p>Head over to the <a href="#demo">demo section</a> to see
+        <cite>SeQRentry</cite> in action.</p>
         </div>
+
+        <table style='width: 100%; text-align: center;'>
+          <tr>
+            <td><img src="App-Store-Badge-EN-0609-2.png" /></td>
+          </tr>
+        </table>
       </section>
     </article>
 
-    <article id="demo" class="inactive">
+    <article id="demo">
       <header>
         <hgroup>
-          <h1>SeQRentry.NET</h1>
+          <h1><a href='#'>SeQRentry.NET</a></h1>
           <h2>Demo</h2>
         </hgroup>
       </header>
 
       <section>
-        <form id="log">
-          <fieldset>
-            <legend>Event log</legend>
+        <h1>Generate</h1>
 
-            <div id="output">
-            </div>
+        <form class='columns' data-seqrentry-func='demo_log(this, type, value);'>
+          <p>This form is used to register an account in the
+          <cite>SeQRentry</cite> phone app. Enter a username and click
+          on the large button to try. When registering, the username
+          is required.</p> 
 
-            <input type="button" value="Clear" onclick='document.getElementById("output").innerHTML = ""'/>
+          <p> (Leave the password field empty; the generated password
+          will automatically be pasted there.)</p>
 
-          </fieldset>
-        </form>
-
-        <form>
           <fieldset>
             <legend>Register</legend>
 
-            <input type="text" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-            <input type="password" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password" />
-            <input type="submit" value="Create account" data-seqrentry-type="submit" />
-            <div style="display: inline-block; width: 80px; height: 80px" data-seqrentry-type="register"></div>
+            <div class='form'>
+              <input type="text" placeholder="Enter your email address" name="email" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);'/> <br />
+              <input type="password" placeholder="Enter your secret password" name="password" maxlength="20" data-seqrentry-type="password" data-seqrentry-func='demo_log(this, type, value);'/> <br />
+              <input type="submit" value="Create account" />
+
+            </div>
+
+            <div class='sqbutton' style="display: inline-block; width: 80px; height: 80px" data-seqrentry-type="register"></div>
           </fieldset>
         </form>
 
-        <form>
-          <fieldset>
-            <legend>Changle password</legend>
+        
+        <h1>Sign in</h1>
 
-            <input type="text" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-            <input type="password" placeholder="Enter your current password" name="old" maxlength="20" data-seqrentry-type="old-password"  />
-            <input type="password" placeholder="Enter your new password" name="password" maxlength="20" data-seqrentry-type="password"  />
-            <input type="submit" value="Update password" data-seqrentry-type="submit"/>
-            <button style="width: 80px; height: 80px;" data-seqrentry-type="change"></button>
-          </fieldset>
-        </form>
+        <form class='columns' data-seqrentry-func='demo_log(this, type, value);'>
+          <p>Once you have registered an account, it's easy to sign
+          in. Just click the button and sign in with the app!</p>
 
-        <form>
+          <p>It's optional to fill in the username. If left
+          empty. <cite>SeQRentry</cite> will let you select from a
+          list of usernames used at this site.</p>
+
           <fieldset>
             <legend>Log in</legend>
 
-            <input type="text" placeholder="Enter your email address" name="email" data-seqrentry-type="username" />
-            <input type="password" placeholder="Enter your secret password" name="password" data-seqrentry-type="password"  />
-            <input type="submit" value="Log in" data-seqrentry-type="submit"/>
-            <button style="width: 80px; height: 80px;" data-seqrentry-type="login"></button>
+            <div class='form'>
+              <input type="text" placeholder="Enter your email address" name="email" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);' /> <br/>
+              <input type="password" placeholder="Enter your secret password" name="password" data-seqrentry-type="password" data-seqrentry-func='demo_log(this, type, value);' /> <br/>
+              <input type="submit" value="Log in" />
+            </div>
+
+            <button class='sqbutton' style="width: 80px; height: 80px;" data-seqrentry-type="login"></button>
           </fieldset>
         </form>
+
+
+        <h1>Reset</h1>
+
+        <form class='columns' data-seqrentry-func='demo_log(this, type, value);'>
+          <p>Another action is to change the password for an existing account.</p>
+
+          <p>Like with sign in actions, providing a username is optional.</p>
+
+          <fieldset>
+            <legend>Changle password</legend>
+
+            <div class='form'>
+              <input type="text" placeholder="Enter your email address" name="email" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);' /> <br />
+              <input type="password" placeholder="Enter your current password" name="old" maxlength="20" data-seqrentry-type="password" data-seqrentry-func='demo_log(this, type, value);' /> <br />
+              <input type="password" placeholder="Enter your new password" name="password" maxlength="20" data-seqrentry-type="new-password" data-seqrentry-func='demo_log(this, type, value);' /> <br />
+              <input type="submit" value="Update password" />
+            </div>
+
+            <button class='sqbutton' style="width: 80px; height: 80px;" data-seqrentry-type="change"></button>
+          </fieldset>
+        </form>
+
+
+        <h1>Event log</h1>
+
+        <form class='columns'>
+          <p>Wondering what's going on? This page uses the
+          'data-seqrentry-func' attribute to get notified when the
+          forms fields are populated, and displays each action in the
+          following event log.</p>
+
+          <fieldset>
+            <legend>Event log</legend>
+            
+            <div id='demo-log'/>
+          </fieldset>
+<script>
+function demo_log(elem, type, value) {
+    var log = document.getElementById('demo-log');
+
+    switch (type) {
+        case 'form':
+            log.innerHTML += new Date() + ' Form "' + elem.getElementsByTagName('legend').item(0).innerHTML + '": ' + value + '<br/>';
+            break;
+
+        case 'username':
+            log.innerHTML += new Date() + ' Username: ' + value + '<br/>';
+            break;
+        
+        case 'password':
+            log.innerHTML += new Date() + ' Password: ' + value + '<br/>';
+            break;
+
+        case 'new-password':
+            log.innerHTML += new Date() + ' New password: ' + value + '<br/>';
+            break;
+
+        default:
+            log.innerHTML += new Date() + ' Unknown type "' + type + '": ' + value + '<br/>';
+            break;
+    }
+}
+</script>
+
+        </form>
+
       </section>
     </article>
   </body>
