@@ -18,14 +18,15 @@ html {
 
 body {
     font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-    font-style: normal;
+    font-style:  normal;
     font-weight: 300;
+    font-size:   20px;
 
     margin: 0px auto 0px auto;
 
     background-color: $body;
     color:            $text;
-    max-width:        75em;
+    max-width:        1280px;
     padding:          0px 15px 15px 15px;
 }
 
@@ -88,7 +89,6 @@ section {
     }
 
     p {
-        font-size:     20px;
         margin-top:    0px;
         margin-bottom: 1.5*20px;
         line-height:   1.5;
@@ -97,7 +97,7 @@ section {
 }
 
 .columns {
-    @include prefix(columns, 30em auto);
+    @include prefix(columns, 420px auto);
 }
 
 cite, em {
