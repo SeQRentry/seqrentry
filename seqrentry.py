@@ -109,9 +109,9 @@ class Proxy(ProxyBase):
 
     def render_POST(self, request):
         token = request.args.get('token', [''])[0]
-        creds = { 'username':    request.args.get('username',    [''])[0],
-                  'password':    request.args.get('password',    [''])[0],
-                  'newPassword': request.args.get('newPassword', [''])[0]}
+        creds = { 'username':     request.args.get('username',    [''])[0],
+                  'password':     request.args.get('password',    [''])[0],
+                  'new-password': request.args.get('new-password', [''])[0]}
 
         if token in proxies:
             proxy = proxies[token]
