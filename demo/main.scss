@@ -30,6 +30,13 @@ body {
     padding:          0px 15px 15px 15px;
 }
 
+input {
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    font-style:  normal;
+    font-weight: 300;
+    font-size:   20px;
+}
+
 a         { color: $fill; }
 a:link    { text-decoration:none; }
 a:visited { text-decoration:none; }
@@ -117,7 +124,7 @@ fieldset {
     @include prefix(column-break-inside, avoid);
 }
 
-input {
+#demo input {
     margin-bottom: 10px;
 }
 
