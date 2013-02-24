@@ -140,8 +140,10 @@ function show_qr(channel) {
     div.appendChild(can);
     document.body.insertBefore(div, document.body.firstChild);
 
-    window.addEventListener('click', function click_hide(ev) {
-        window.removeEventListener('click', click_hide, false);
+    var click_ev = 'ontouchstart' in window ? 'touchstart' : 'click';
+
+    window.addEventListener(click_ev, function click_hide(ev) {
+        window.removeEventListener(click_ev, click_hide, false);
 
         hide_qr();
         show_spinner(channel, false);
@@ -156,7 +158,7 @@ function show_qr(channel) {
         close_all_channels();
     }, false);
 
-    can.addEventListener('click', function(ev) {
+    can.addEventListener(click_ev, function(ev) {
         ev.stopPropagation();
         window.open(channel.qr);
     }, false);
