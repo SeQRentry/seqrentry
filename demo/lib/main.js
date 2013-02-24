@@ -45,7 +45,7 @@ function decode_password(key, password) {
     password = Base64.decode(password, Base64.urlCS);
 
     for (var i = 0; i < password.length; ++i) {
-        result.push(password.charCodeAt(i) ^ key.charCodeAt(i));
+        result.push(String.fromCharCode(password.charCodeAt(i) ^ key.charCodeAt(i)));
     }
 
     return Base64.encode(result.join(''), Base64.urlCS).replace(/=+$/, '');
