@@ -141,7 +141,7 @@ function show_qr(channel) {
     document.body.insertBefore(div, document.body.firstChild);
 
     window.addEventListener('click', function click_hide(ev) {
-        document.removeEventListener('click', click_hide, false);
+        window.removeEventListener('click', click_hide, false);
 
         hide_qr();
         show_spinner(channel, false);
