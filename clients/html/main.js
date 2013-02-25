@@ -19,7 +19,6 @@ window.addEventListener('load', function load(ev){
 /** @const */ var FUNC_ATTR     = 'data-seqrentry-func';     // function(type, value) callback
 
 /** @const */ var BUTTON_CLASS   = 'seqrentry-button';
-/** @const */ var BUTTON_IMAGE   = '../SeQRentry-logo-v2-64.png';
 
 /** @const */ var SEQRENTRY_URL = 'http://seqrentry.net/';
 /** @const */ var PROXY_URL     = 'http://seqrentry.net/';
@@ -29,7 +28,6 @@ var channel_id = 0;
 
 function install_button(elem) {
     elem.className += ' ' + BUTTON_CLASS;
-    elem.innerHTML =  '<img src="' + BUTTON_IMAGE + '" />';
     elem.addEventListener('click', function(ev) { ev.stopPropagation(); create_channel(elem); }, false);
 
     if (elem.localName == 'button' && !elem.hasAttribute('onclick')) {

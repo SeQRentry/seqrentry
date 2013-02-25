@@ -3,6 +3,7 @@
     padding: 0px;
     border:  2px solid #888;
     position: relative;
+    background: #fff url(button.png) no-repeat center center;
 }
 
 .seqrentry-button img {
