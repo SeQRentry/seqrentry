@@ -3,12 +3,13 @@
 import argparse
 import base64
 import json
+import os;
 import sys
 
 from twisted.internet import reactor
 from twisted.internet.error import BindError
 from twisted.python.randbytes import secureRandom
-from twisted.web import server, resource
+from twisted.web import server, static, resource
 from xml.etree import ElementTree
 
 PROXY_LIFETIME = 10 * 60
@@ -124,7 +125,7 @@ class Proxy(ProxyBase):
 
             self._sendResponse(request, 200 if online else 202, 'proxyNotified', {})
         else:
-            self._sendResponse(request, 403, 'proxyNotFound', {})
+            self._sendResponse(request, 402, 'proxyNotFound', {})
 
         return server.NOT_DONE_YET
 
@@ -147,7 +148,7 @@ class Proxy(ProxyBase):
                 else:
                     reactor.callLater(PROXY_WAITTIME, self._timeoutProxy, token)
         else:
-            self._sendResponse(request, 403, 'proxyNotFound', {})
+            self._sendResponse(request, 402, 'proxyNotFound', {})
 
         return server.NOT_DONE_YET
 
@@ -162,6 +163,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Start the SeQRentry proxy.', add_help = False)
     parser.add_argument('-?', '-h', '--help', help='Display this message and exit', action='store_true', dest='help')
     parser.add_argument('-p', '--proxy-url', metavar = 'URL', help='Override proxy URL returned to clients', dest='proxy_url')
+    parser.add_argument('-r', '--root', metavar = 'directory', help='Also serve static files from this directory', dest='root')
     parser.add_argument('-H, --http', default = '*:8080', metavar = '[host:]port',
                         help = 'Listen for HTTP requests on this interface address and port (default: port 8080 on all interfaces)',
                         dest='http')
@@ -180,7 +182,8 @@ if __name__ == '__main__':
         http[0] = ''
 
     try:
-        root = resource.Resource()
+        path = os.path.abspath(args.root) + '/' if args.root else None;
+        root = static.File(path) if path else resource.Resource()
 
         root.putChild('create-proxy.js', CreateProxy('text/javascript'))
         root.putChild('create-proxy.json', CreateProxy('application/json'))
@@ -194,6 +197,10 @@ if __name__ == '__main__':
         reactor.listenTCP(int(http[1]), site, 50, http[0])
 
         print 'Listening for HTTP requests on {0}.'.format(':'.join(http))
+
+        if path:
+            print 'Also serving static content from {0}.'.format(path)
+
         print 'Press Control-C to exit.'
 
         reactor.run()
