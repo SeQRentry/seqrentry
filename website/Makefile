@@ -1,9 +1,19 @@
 
-TARGETS	= css/main.css
+DESTDIR		= ../destdir
+TARGETS		= css/main.css
+FILES		= $(TARGETS) index.html $(wildcard gfx/*.png) $(wildcard js/*.js)
 
-SASS	= sass --no-cache --style=compressed
+SASS		= sass --no-cache --style=compressed
+INSTALL		= install
 
-all:	$(TARGETS)
+all:		$(TARGETS)
+
+install:	all
+	$(INSTALL) -d $(DESTDIR)/css $(DESTDIR)/gfx $(DESTDIR)/js
+
+	for file in $(TARGETS) $(FILES); do \
+		$(INSTALL) $$file $(DESTDIR)/$$file; \
+	done
 
 clean:
 	$(RM) $(TARGETS)
