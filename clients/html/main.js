@@ -20,7 +20,6 @@ window.addEventListener('load', function load(ev){
 
 /** @const */ var BUTTON_CLASS   = 'seqrentry-button';
 /** @const */ var BUTTON_IMAGE   = '../SeQRentry-logo-v2-64.png';
-/** @const */ var BUTTON_SPINNER = 'lib/spinner.gif';
 
 /** @const */ var SEQRENTRY_URL = 'http://seqrentry.net/';
 /** @const */ var PROXY_URL     = 'http://seqrentry.net/';
@@ -30,7 +29,7 @@ var channel_id = 0;
 
 function install_button(elem) {
     elem.className += ' ' + BUTTON_CLASS;
-    elem.innerHTML =  '<img src="' + BUTTON_IMAGE + '" /><img src="' + BUTTON_SPINNER + '" style="display: none;" />';
+    elem.innerHTML =  '<img src="' + BUTTON_IMAGE + '" />';
     elem.addEventListener('click', function(ev) { ev.stopPropagation(); create_channel(elem); }, false);
 
     if (elem.localName == 'button' && !elem.hasAttribute('onclick')) {
@@ -71,7 +70,6 @@ function create_channel(button) {
     var id = String(++channel_id);
     channels[id] = { url: null, button: button, key: null, qr: null }
     script_load((window['SEQRENTRY_PROXY_URL'] || PROXY_URL) + 'create-proxy.js?ident=' + id);
-    show_spinner(channels[id], true);
 }
 
 function poll_channel(channel) {
@@ -146,7 +144,6 @@ function show_qr(channel) {
         window.removeEventListener(click_ev, click_hide, false);
 
         hide_qr();
-        show_spinner(channel, false);
 
         traverse_form(channel.button, function(type, elem) {
             if (type == 'form') {
@@ -170,14 +167,6 @@ function hide_qr() {
 
     if (banner) {
         banner.parentNode.removeChild(banner);
-    }
-}
-
-function show_spinner(channel, on) {
-    var img = channel.button && channel.button.childNodes.item(1);
-
-    if (img) {
-        img.style.display = on ? "inline-block" : "none";
     }
 }
 
@@ -273,7 +262,6 @@ SeQRentry['proxyResponse'] = function(status, params) {
 
     if (channel) {
         hide_qr();
-        show_spinner(channel, false);
 
         close_all_channels();
 

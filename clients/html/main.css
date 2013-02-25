@@ -32,7 +32,7 @@
     border-bottom: 2px solid #000;
     border-left:   0px;
 
-    background:    #cae0d1;
+    background:    #cae0d1 url(spinner.gif) no-repeat center center;
     color:         #000000;
     z-index:       2000000000;
 
