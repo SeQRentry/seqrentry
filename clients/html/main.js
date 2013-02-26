@@ -81,7 +81,7 @@ function close_all_channels() {
 
 function make_url(button, proxy, token, key) {
     var username;
-    var realm = document.location.host;
+    var realm = window['SEQRENTRY_REALM'] || document.location.host;
 
     traverse_form(button, function(type, elem) {
         if (type == 'form') {
@@ -149,7 +149,7 @@ function show_qr(channel) {
                 return false;
             }
         });
-        
+
         close_all_channels();
     }, false);
 
