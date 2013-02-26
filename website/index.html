@@ -22,8 +22,8 @@
     <script type="text/javascript" async="async" src="js/index.js"></script>
 
     <link rel="stylesheet" type="text/css" href="seqrentry-0.9/seqrentry.css" />
-    <script type="text/javascript">SEQRENTRY_PROXY_URL = "/";</script>
     <script type="text/javascript" src="seqrentry-0.9/seqrentry.js" async="async"></script>
+    <script type="text/javascript">var SEQRENTRY_PROXY_URL = "/", SEQRENTRY_REALM = "seqrentry.net/demo";</script>
   </head>
 
   <body>
@@ -137,7 +137,7 @@
           <p>Like with sign in actions, providing a username is optional.</p>
 
           <fieldset>
-            <legend>Changle password</legend>
+            <legend>Change password</legend>
 
             <div class='form'>
               <input type="text"     placeholder="Enter your email address"    name="email"    size="30" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);' /> <br />
@@ -164,34 +164,6 @@
             
             <div id='demo-log'/>
           </fieldset>
-<script>
-function demo_log(elem, type, value) {
-    var log = document.getElementById('demo-log');
-
-    switch (type) {
-        case 'form':
-            log.innerHTML += new Date() + ' Form "' + elem.getElementsByTagName('legend').item(0).innerHTML + '": ' + value + '<br/>';
-            break;
-
-        case 'username':
-            log.innerHTML += new Date() + ' Username: ' + value + '<br/>';
-            break;
-        
-        case 'password':
-            log.innerHTML += new Date() + ' Password: ' + value + '<br/>';
-            break;
-
-        case 'new-password':
-            log.innerHTML += new Date() + ' New password: ' + value + '<br/>';
-            break;
-
-        default:
-            log.innerHTML += new Date() + ' Unknown type "' + type + '": ' + value + '<br/>';
-            break;
-    }
-}
-</script>
-
         </form>
 
       </section>
