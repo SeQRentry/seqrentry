@@ -26,9 +26,33 @@ window.addEventListener('load', function load(ev){
 var channels   = /** @dict */ {}
 var channel_id = 0;
 
+function trim(str) {
+    return str.replace(/^\s+|\s+$/g, '');
+}
+
 function install_button(elem) {
     elem.className += ' ' + BUTTON_CLASS;
-    elem.addEventListener('click', function(ev) { ev.stopPropagation(); create_channel(elem); }, false);
+    elem.addEventListener('click', function(ev) {
+        var register, username;
+
+        ev.stopPropagation();
+
+        traverse_form(elem, function(type, elem) {
+            if (type == 'register') {
+                register = true;
+            }
+            else if (type == 'username') {
+                username = trim(elem.getAttribute(USERNAME_ATTR) || elem.value);
+            }
+        });
+
+        if (register && !username) {
+            alert("No username");
+        }
+        else {
+            create_channel(elem);
+        }
+    }, false);
 
     if (elem.localName == 'button' && !elem.hasAttribute('onclick')) {
 	elem.setAttribute('onclick', 'return false;');
@@ -88,7 +112,7 @@ function make_url(button, proxy, token, key) {
             realm = elem.getAttribute(REALM_ATTR) || realm;
         }
         else if (type == 'username') {
-            username = elem.getAttribute(USERNAME_ATTR) || elem.value;
+            username = trim(elem.getAttribute(USERNAME_ATTR) || elem.value);
         }
     });
 
