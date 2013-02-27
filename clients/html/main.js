@@ -33,7 +33,7 @@ function trim(str) {
 function install_button(elem) {
     elem.className += ' ' + BUTTON_CLASS;
     elem.addEventListener('click', function(ev) {
-        var register, username;
+        var register = false, username;
 
         ev.stopPropagation();
 
@@ -50,6 +50,7 @@ function install_button(elem) {
             alert("No username");
         }
         else {
+            show_banner();
             create_channel(elem);
         }
     }, false);
@@ -124,18 +125,23 @@ function make_url(button, proxy, token, key) {
         (username ? '&u=' + encodeURIComponent(username) : '')
 }
 
+function show_banner() {
+    var div = document.createElement('div');
+
+    div.id = BANNER_ID;
+    div.style.top = (window.innerHeight - BANNER_HEIGHT) / 2 + 'px';
+    div.title = 'Click to cancel';
+
+    document.body.insertBefore(div, document.body.firstChild);
+}
+
 function show_qr(channel) {
     var qrcode = new QRCode(10, QRErrorCorrectLevel.L);
 
     qrcode.addData(channel.qr);
     qrcode.make();
 
-    var div = document.createElement('div');
     var can = document.createElement('canvas');
-
-    div.id = BANNER_ID;
-    div.style.top = (window.innerHeight - BANNER_HEIGHT) / 2 + 'px';
-    div.title = 'Click to cancel';
 
     can.id = QRCODE_ID;
     can.title = 'Scan to activate!';
@@ -157,15 +163,14 @@ function show_qr(channel) {
         }
     }
 
-    div.appendChild(can);
-    document.body.insertBefore(div, document.body.firstChild);
+    document.getElementById(BANNER_ID).appendChild(can);
 
     var click_ev = 'ontouchstart' in window ? 'touchstart' : 'click';
 
     window.addEventListener(click_ev, function click_hide(ev) {
         window.removeEventListener(click_ev, click_hide, false);
 
-        hide_qr();
+        hide_banner();
 
         traverse_form(channel.button, function(type, elem) {
             if (type == 'form') {
@@ -183,7 +188,7 @@ function show_qr(channel) {
     }, false);
 }
 
-function hide_qr() {
+function hide_banner() {
     // Remove QR banner
     var banner = document.getElementById(BANNER_ID);
 
@@ -192,9 +197,18 @@ function hide_qr() {
     }
 }
 
+function hide_qr() {
+    // Remove QR code
+    var code = document.getElementById(QRCODE_ID);
+
+    if (code) {
+        code.parentNode.removeChild(code);
+    }
+}
+
 function traverse_form(elem, fn) {
     var form = elem.form;
-    var f;
+    var c, children;
 
     while (!form && elem.parentNode) {
         elem = elem.parentNode;
@@ -203,11 +217,13 @@ function traverse_form(elem, fn) {
 
     if (form) {
         if (fn('form', form) !== false) {
-            for (f = 0; f < form.length; ++f) {
-                var type = form[f].getAttribute(TYPE_ATTR);
+            children = form.getElementsByTagName("*");
+
+            for (c = 0; c < children.length; ++c) {
+                var type = children[c].getAttribute(TYPE_ATTR);
 
                 if (type) {
-	            if (fn(type, form[f]) === false) {
+	            if (fn(type, children[c]) === false) {
                         break;
                     }
                 }
@@ -271,6 +287,7 @@ SeQRentry['proxyDeleted'] = SeQRentry['proxyNotFound'] = SeQRentry['proxyInUse']
 
     if (channel) {
         // Unless channel has been cancelled, create a new one and delete the old
+        hide_qr();
         create_channel(channel.button);
         delete channels[id];
     }
@@ -283,7 +300,7 @@ SeQRentry['proxyResponse'] = function(status, params) {
     console.log('SeQRentry.proxyResponse', status, params, channel);
 
     if (channel) {
-        hide_qr();
+        hide_banner();
 
         close_all_channels();
 
