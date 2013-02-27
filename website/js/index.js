@@ -4,14 +4,33 @@ $(document).ready(function() {
         var id = location.hash.substring(1);
         var el = document.getElementById(id) || document.getElementById('main');
 
-        $('article').each(function (idx, el) {
-            if ($(el).hasClass('active')) {
-                $(el).removeClass('active').addClass('inactive');
-            }
-        });
+        // Re-insert article in flow (but hidden)
+        $(el).removeClass('removed').addClass('inactive');
 
-        $(el).removeClass('inactive').addClass('active');
+        window.setTimeout(function() {
+            // Make one article active and all others inactive
+            $('article').each(function (idx, el) {
+                $(el).removeClass('active').removeClass('inactive');
+            });
+
+            $(el).addClass('active');
+        }, 0);
+
+        window.setTimeout(function() {
+            // Remove article from flow once it has faded away
+            $('article').each(function (idx, el) {
+                if (!$(el).hasClass('active')) {
+                    $(el).removeClass('inactive').addClass('removed');
+                }
+            });
+        }, 500);
+        
     })
+
+    // Enable fading pages if Javascript is available
+    $('article').each(function (idx, el) {
+        $(el).addClass('stacked');
+    });
 
     $(window).hashchange();
 });

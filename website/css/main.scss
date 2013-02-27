@@ -12,7 +12,7 @@ $body: #fcffff;
 $back: #fffff8;
 $text: #033;
 
-html { 
+html {
     overflow-y: scroll;
 }
 
@@ -43,13 +43,31 @@ a:visited { text-decoration:none; }
 a:hover   { text-decoration:underline; }
 a:active  { text-decoration:underline; }
 
-article { 
-    display:     none; 
-    padding-top: 10px;
+article {
+    padding: 15px 0px 15px 0px;
 }
 
-article.active   { display: block; }
-article.inactive { display: none;  }
+article.stacked {
+    position: absolute;
+    top:      0px;
+    left:     15px;
+    right:    15px;
+
+    opacity:  0;
+    @include  prefix(transition, opacity 0.3s linear);
+}
+
+article.active {
+    opacity: 1 !important;
+}
+
+article.inactive {
+    visibility: hidden;
+}
+
+article.removed {
+    display: none;
+}
 
 header {
     hgroup {
@@ -67,8 +85,8 @@ header {
     }
 
     h1 {
-        font-family: 'Oregano', cursive; 
-        font-weight: 400; 
+        font-family: 'Oregano', cursive;
+        font-weight: 400;
         font-style:  italic;
         font-size:   48px;
     }
