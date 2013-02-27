@@ -94,8 +94,8 @@
             <legend>Register</legend>
 
             <div class='form'>
-              <input type="text"     placeholder="Enter your email address"   name="email"    size="30" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);'/> <br />
-              <input type="password" placeholder="Enter your secret password" name="password" size="30" data-seqrentry-type="password" data-seqrentry-func='demo_log(this, type, value);'/> <br />
+              <input type="text"     placeholder="Enter a username"    name="username" size="30" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);'/> <br />
+              <input type="password" placeholder="(Will be generated)" name="password" size="30" data-seqrentry-type="password" data-seqrentry-func='demo_log(this, type, value);'/> <br />
               <input type="submit" value="Create account" />
 
             </div>
@@ -119,8 +119,8 @@
             <legend>Log in</legend>
 
             <div class='form'>
-              <input type="text"     placeholder="Enter your email address"   name="email"    size="30" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);' /> <br/>
-              <input type="password" placeholder="Enter your secret password" name="password" size="30" data-seqrentry-type="password" data-seqrentry-func='demo_log(this, type, value);' /> <br/>
+              <input type="text"     placeholder="Enter username or leave empty"  name="username" size="30" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);' /> <br/>
+              <input type="password" placeholder="(Will be sent from your phone)" name="password" size="30" data-seqrentry-type="password" data-seqrentry-func='demo_log(this, type, value);' /> <br/>
               <input type="submit" value="Log in" />
             </div>
 
@@ -140,9 +140,9 @@
             <legend>Change password</legend>
 
             <div class='form'>
-              <input type="text"     placeholder="Enter your email address"    name="email"    size="30" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);' /> <br />
-              <input type="password" placeholder="Enter your current password" name="old"      size="30" data-seqrentry-type="password" data-seqrentry-func='demo_log(this, type, value);' /> <br />
-              <input type="password" placeholder="Enter your new password"     name="password" size="30" data-seqrentry-type="new-password" data-seqrentry-func='demo_log(this, type, value);' /> <br />
+              <input type="text"     placeholder="Enter username or leave empty"  name="username" size="30" data-seqrentry-type="username" data-seqrentry-func='demo_log(this, type, value);' /> <br />
+              <input type="password" placeholder="(No need to remember this)"     name="old"      size="30" data-seqrentry-type="password" data-seqrentry-func='demo_log(this, type, value);' /> <br />
+              <input type="password" placeholder="(Your phone will create a new)" name="password" size="30" data-seqrentry-type="new-password" data-seqrentry-func='demo_log(this, type, value);' /> <br />
               <input type="submit" value="Update password" />
             </div>
 
