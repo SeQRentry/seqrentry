@@ -41,7 +41,7 @@ function demo_log(elem, type, value) {
 
     if (type != 'form') {
         $(elem).addClass('highlight');
-        window.setTimeout(function() { $(elem).removeClass('highlight'); }, 1);
+        window.setTimeout(function() { $(elem).removeClass('highlight'); }, 500);
     }
 
     switch (type) {
