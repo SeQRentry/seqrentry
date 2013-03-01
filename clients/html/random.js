@@ -4,6 +4,11 @@ var Random = {
   _ritardandoState: {},
 
   init: function() {
+    window.addEventListener('load', function load(ev){
+      // Add DOM load time to entropy
+      Random.addEntropy(ev.type);
+    });
+
     window.addEventListener("scroll", function(ev) {
       Random.addRitardandoEntropy(ev.type, ev.type + ev.timeStamp);
     });
@@ -54,7 +59,7 @@ var Random = {
   // Gather entropy
   addEntropy: function(s) {
     // (The current time and a sample from Math.random() is always mixed in)
-    Random._entropy = rstr_sha256(Random._entropy + s + new Date().getTime() + Math.random());
+    Random._entropy = rstr_hmac_sha256(Random._entropy, s + new Date().getTime() + Math.random());
   },
 
   // Sample a lesser and lesser frequent 'random' selection of events
@@ -96,10 +101,3 @@ var Random = {
 
 // Int entropy collector immediately
 Random.init();
-
-window.addEventListener('load', function load(ev){
-  window.removeEventListener('load', load, false);
-
-  // Add DOM load time to entropy
-  Random.addEntropy(ev.type);
-});
