@@ -1,4 +1,11 @@
 
+$(document).load(function() {
+    // Enable fading pages if Javascript is available
+    $('article').each(function (idx, el) {
+            $(el).addClass('stacked');
+    });
+});
+
 $(document).ready(function() {
     $(window).hashchange(function() {
         var id = location.hash.substring(1);
@@ -14,7 +21,7 @@ $(document).ready(function() {
             });
 
             $(el).addClass('active');
-        }, 0);
+        }, 10);
 
         window.setTimeout(function() {
             // Remove article from flow once it has faded away
@@ -25,12 +32,11 @@ $(document).ready(function() {
             });
         }, 500);
         
+        // Enable fading pages if Javascript is available
+        $('article').each(function (idx, el) {
+            $(el).addClass('stacked');
+        });
     })
-
-    // Enable fading pages if Javascript is available
-    $('article').each(function (idx, el) {
-        $(el).addClass('stacked');
-    });
 
     $(window).hashchange();
 });
