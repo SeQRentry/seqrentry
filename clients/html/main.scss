@@ -1,4 +1,13 @@
 
+@mixin prefix($name, $value) {
+  #{$name}:         $value;
+  -moz-#{$name}:    $value;
+  -webkit-#{$name}: $value;
+}
+
+$banner: #cae0d1;
+$shine:  #ed9;
+
 .seqrentry-button {
     padding: 0px;
     border:  2px solid #888;
@@ -33,7 +42,7 @@
     border-bottom: 2px solid #000;
     border-left:   0px;
 
-    background:    #cae0d1 url(spinner.gif) no-repeat center center;
+    background:    $banner url(spinner.gif) no-repeat center center;
     color:         #000000;
     z-index:       2000000000;
 
@@ -62,12 +71,15 @@
     /* Visual extras */
     border-radius:      15px;
     box-shadow:         0px 0px 40px #999;
+    @include  prefix(transition, box-shadow 0.3s ease-in-out);
 
-    animation-name:     seqrentry-qrcode-anim;
-    animation-duration: 1s;
+    @include  prefix(animation-name,     seqrentry-qrcode-anim);
+    @include  prefix(animation-duration, 1s);
+}
 
-    -webkit-animation-name:     seqrentry-qrcode-anim;
-    -webkit-animation-duration: 1s;
+#seqrentry-qrcode:hover {
+    border-radius:      15px;
+    box-shadow:         0px 0px 40px $shine;
 }
 
 @keyframes seqrentry-banner-anim {

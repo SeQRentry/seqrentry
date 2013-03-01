@@ -10,7 +10,7 @@ TARGETS		= $(TARGETS_ORIG) $(TARGETS_MINI)
 CURL		= curl
 CLOSURE_LEVEL	= ADVANCED_OPTIMIZATIONS
 CLOSURE  	= http://closure-compiler.appspot.com/compile
-CSSMINIFIER	= http://www.cssminifier.com/raw
+SASS		= sass --no-cache
 INSTALL		= install
 
 orig:	$(TARGETS_ORIG)
@@ -27,19 +27,19 @@ install:	all
 clean:
 	$(RM) $(TARGETS_ORIG) $(TARGETS_MINI)
 
+seqrentry.css: main.scss
+	$(SASS)	$^ $@
+
+seqrentry-min.css: main.scss
+	$(SASS)	 --style=compressed $^ $@
+
 seqrentry.js: base64.js qrcode.js sha256.js random.js main.js
 	(echo '(function() {'; cat $^; echo '})();') > $@
 
-seqrentry.css: main.css
-	cat $^ > $@
-
-seqrentry-min.js: seqrentry-$(VERSION).js
+seqrentry-min.js: seqrentry.js
 	$(CURL) --data compilation_level=$(CLOSURE_LEVEL) \
 		--data output_format=text \
 		--data output_info=compiled_code \
 		--data-urlencode js_code@- \
 		$(CLOSURE) < $< > $@
 
-seqrentry-min.css: seqrentry-$(VERSION).css
-	$(CURL) --data-urlencode input@- \
-		$(CSSMINIFIER) < $< > $@
