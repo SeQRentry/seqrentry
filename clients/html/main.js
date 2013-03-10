@@ -27,7 +27,11 @@ var channels   = /** @dict */ {}
 var channel_id = 0;
 
 function trim(str) {
-    return str.replace(/^\s+|\s+$/g, '');
+    if (typeof str === 'string') {
+        str = str.replace(/^\s+|\s+$/g, '');
+    }
+
+    return str;
 }
 
 function install_button(elem) {
@@ -41,8 +45,11 @@ function install_button(elem) {
             if (type == 'register') {
                 register = true;
             }
+            else if (type == 'form') {
+                username = trim(elem.getAttribute(USERNAME_ATTR));
+            }
             else if (type == 'username') {
-                username = trim(elem.getAttribute(USERNAME_ATTR) || elem.value);
+                username = trim(elem.value);
             }
         });
 
@@ -124,9 +131,10 @@ function make_url(button, proxy, token, key) {
     traverse_form(button, function(type, elem) {
         if (type == 'form') {
             realm = elem.getAttribute(REALM_ATTR) || realm;
+            username = trim(elem.getAttribute(USERNAME_ATTR));
         }
         else if (type == 'username') {
-            username = trim(elem.getAttribute(USERNAME_ATTR) || elem.value);
+            username = trim(elem.value);
         }
     });
 
@@ -248,10 +256,23 @@ function traverse_form(elem, fn) {
 // Code to call the 'data-seqrentry-func' callback
 function call_func(type, elem, value) {
     var rc = new Function('type', 'value', elem.getAttribute(FUNC_ATTR)).call(elem, type, value);
+    var ev;
 
     if (rc !== false) {
         value = rc !== undefined ? rc : value;
-        elem.value = value;
+
+        if (value !== undefined && value !== '') {
+            elem.value = value;
+
+            if ("fireEvent" in elem) {
+                elem.fireEvent("onchange");
+            }
+            else {
+                ev = document.createEvent("HTMLEvents");
+                ev.initEvent("change", false, true);
+                elem.dispatchEvent(ev);
+            }
+        }
     }
 }
 
