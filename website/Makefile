@@ -1,7 +1,7 @@
 
 DESTDIR		= ../destdir
 TARGETS		= css/main.css
-FILES		= $(TARGETS) index.html $(wildcard gfx/*.png) $(wildcard js/*.js)
+FILES		= $(TARGETS) favicon.ico index.html $(wildcard gfx/*.png) $(wildcard js/*.js)
 
 SASS		= sass --no-cache --style=compressed
 INSTALL		= install
