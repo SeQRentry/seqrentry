@@ -60,11 +60,24 @@ function install_button(elem) {
     }
 }
 
-function decode_password(key, password) {
+// Derive XOR key based on derivation key and usage ('password', 'new-password' etc.)
+function derive_key(key, type, length) {
+    var result = "";
+    var i = 0;
+
+    while (result.length < length) {
+        result += rstr_hmac_sha256(key, type + String(i));
+        ++i;
+    }
+
+    return result.substring(0, length);
+}
+
+function decode_password(key, type, password) {
     var result = [];
 
-    key      = Base64.decode(key, Base64.urlCS);
     password = Base64.decode(password, Base64.urlCS);
+    key      = derive_key(Base64.decode(key, Base64.urlCS), type, password.length);
 
     for (var i = 0; i < password.length; ++i) {
         result.push(String.fromCharCode(password.charCodeAt(i) ^ key.charCodeAt(i)));
@@ -314,10 +327,10 @@ SeQRentry['proxyResponse'] = function(status, params) {
                 call_func(type, elem, params['username']);
             }
             else if (type == 'password') {
-                call_func(type, elem, decode_password(channel.key, params['password']));
+                call_func(type, elem, decode_password(channel.key, 'password', params['password']));
             }
             else if (type == 'new-password') {
-                call_func(type, elem, decode_password(channel.key, params['new-password']));
+                call_func(type, elem, decode_password(channel.key, 'new-password', params['new-password']));
             }
         });
 
