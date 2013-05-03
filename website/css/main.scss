@@ -11,6 +11,7 @@ $fill: #7EA7D8;
 $body: #fcffff;
 $back: #fffff8;
 $text: #033;
+$shadow: #ccc;
 
 html {
     overflow-y: scroll;
@@ -80,7 +81,7 @@ header {
         border-radius:    15px;
         background-color: $fill;
         color:            $back;
-        box-shadow:       0px 0px 40px #999;
+        box-shadow:       0px 0px 40px $shadow;
     }
 
     a {
@@ -111,7 +112,7 @@ section {
     border-radius:    15px;
     background-color: $back;
 
-    box-shadow:       0px 0px 40px #999;
+    box-shadow:       0px 0px 40px $shadow;
 
     h1 {
         font-size:     32px;
