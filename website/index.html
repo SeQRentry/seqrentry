@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>SeQRentry.NET</title>
+    <title>SeQRentry.NET &#x2014; Secure Web Accounts</title>
 
     <meta name='viewport' content='width=420, initial-scale=1.0' />
     <style>
@@ -24,21 +24,97 @@
     <link rel="stylesheet" type="text/css" href="seqrentry-0.9/seqrentry.css" />
     <script type="text/javascript" src="seqrentry-0.9/seqrentry.js" async="async"></script>
     <script type="text/javascript">var SEQRENTRY_PROXY_URL = "/", SEQRENTRY_REALM = "seqrentry.net/demo";</script>
-  </head>
+
+    <script type="text/javascript">/* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+    /* ]]> */</script>
+
+</head>
 
   <body>
     <article id="main" class="active">
       <header>
         <hgroup>
           <h1><a href='#'>SeQRentry.NET</a></h1>
-          <h2>Secure web accounts</h2>
+          <h2>A safer Internet</h2>
         </hgroup>
       </header>
 
       <section>
-        <h1>Secure ... what?</h1>
-
         <div class='columns'>
+        <h1>Mission.</h1>
+
+        <p>We're here to make the Internet a safer place. That's all.</p>
+
+        <p>Specifically, our mission is to make hacker attacks against
+        <a href="https://www.google.com/search?q=password+breaches&amp;tbm=nws">
+        password databases</a> a thing of the past. And as a side
+        effect, we'll also make break-ins by password guessing a thing
+        of the past.</p>
+
+        <h1>Goal.</h1>
+
+        <p>A web site's password database is often only interesting
+        because the passwords found inside might be used to unlock
+        accounts at other, more sensitive, services.</p>
+
+        <p>Our goal is to make any stolen password obtained from a
+        site or service breach unusable and uninteresting, by making
+        sure all passwords are cryptographically strong and never,
+        ever reused between different accounts.</p>
+
+        <h1>Means.</h1>
+
+        <p>The <cite>SeQRentry</cite> (<q>secure entry</q>) app
+        generates and stores strong, random and unique passwords for
+        you, on the only device you <em>always</em> have at hand: your
+        phone.</p>
+
+        <p>Any system trying to replace a simple username and password
+        box that is difficuly to use, difficult to implement,
+        expensive or not flexible enough is doomed to
+        fail. Fortunately, <cite>SeQRentry</cite> is nothing of the
+        kind.</p>
+
+        <p>Head over to the <a href="#demo">demo section</a> to see
+        <cite>SeQRentry</cite> in action.</p>
+
+        <h1>Help.</h1>
+
+        <p>You can help us achieve our goal in serveral ways:</p>
+
+        <ul>
+          <li>Site owners can <a href="#webmasters">implement
+          it</a> on their web site.</li>
+          <li>Developers can help by improving the code, writing
+          browser extensions or adding support in their existing
+          keyring apps.</li>
+          <li>Artists can make this web site and the apps pretty.</li>
+          <li>End-users can help us improve the usability and find
+          bugs.</li>
+        </ul>
+
+        <p>Last, but not least: you're all encouraged to donate to the
+        project.</p>
+
+        <ul class="no-bullet">
+          <li><img src="http://en.bitcoin.it/w/images/en/c/cb/BC_Logotype.png" height="20"/> <em>19HaCoPpzd64T8TUBa3AtQKsP2aEgCJNSK</em></li>
+          <li><a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://seqrentry.net/"></a></li>
+          <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="paypal">
+<input type="hidden" name="cmd" value="_s-xclick" />
+<input type="hidden" name="hosted_button_id" value="J7F6RT2LT23R4" />
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+</form></li>
+        </ul>
+
+<!--
         <p><cite>SeQRentry</cite> is a highly secure, QR-based method
         to sign in to web sites online by using your cell phone's
         camera. The phone app automatically generates unique,
@@ -57,9 +133,8 @@
         easier, and now there really are no excuses for reusing the
         same password over and over again. Let's make the web a better
         place!</p>
+-->
 
-        <p>Head over to the <a href="#demo">demo section</a> to see
-        <cite>SeQRentry</cite> in action.</p>
         </div>
 
         <table style='width: 100%; text-align: center;'>
@@ -85,7 +160,7 @@
           <p>This form is used to register an account in the
           <cite>SeQRentry</cite> phone app. Enter a username and click
           on the large button to try. When registering, the username
-          is required.</p> 
+          is required.</p>
 
           <p> (Leave the password field empty; the generated password
           will automatically be pasted there.)</p>
@@ -104,7 +179,7 @@
           </fieldset>
         </form>
 
-        
+
         <h1>Sign in</h1>
 
         <form class='columns' data-seqrentry-func='demo_log(this, type, value);'>
@@ -161,7 +236,7 @@
 
           <fieldset>
             <legend>Event log</legend>
-            
+
             <div id='demo-log'/>
           </fieldset>
         </form>

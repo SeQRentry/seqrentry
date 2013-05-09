@@ -45,6 +45,13 @@ a:visited { text-decoration:none; }
 a:hover   { text-decoration:underline; }
 a:active  { text-decoration:underline; }
 
+q:before  {  content:     '\201C'; }
+q:after   {  content:     '\201D'; }
+
+ul li {
+    list-style:  square inside;
+    margin-left: 20px;
+}
 
 article {
     padding: 15px 0px 15px 0px;
@@ -119,9 +126,14 @@ section {
         margin-bottom: 15px;
     }
 
-    p {
+    h2 {
+        font-size:     24px;
+        margin-bottom: 10px;
+    }
+
+    p, li {
         margin-top:    0px;
-        margin-bottom: 1.5*20px;
+        margin-bottom: 15px;
         line-height:   1.5;
     }
 
@@ -129,6 +141,18 @@ section {
 
 .columns {
     @include prefix(columns, 420px auto);
+}
+
+.no-bullet li {
+    list-style: none;
+}
+
+.FlattrButton {
+#    float: right;
+}
+
+.paypal {
+    display: inline-block;
 }
 
 cite, em {
