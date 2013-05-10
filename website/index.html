@@ -16,16 +16,22 @@
     <link rel='stylesheet' type='text/css' href='css/main.css' />
     <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Oregano:400italic' />
     <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic' />
+    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Source+Code+Pro:300' />
 
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script type="text/javascript" src="js/jquery.ba-hashchange.min.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js'></script>
+    <script type='text/javascript' src='js/jquery.ba-hashchange.min.js'></script>
+    <script type='text/javascript' src='js/index.js'></script>
 
-    <link rel="stylesheet" type="text/css" href="seqrentry-0.9/seqrentry.css" />
-    <script type="text/javascript" src="seqrentry-0.9/seqrentry.js" async="async"></script>
-    <script type="text/javascript">var SEQRENTRY_PROXY_URL = "/", SEQRENTRY_REALM = "seqrentry.net/demo";</script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=sunburst"></script>
+<!--    <link rel='stylesheet' type='text/css' href='http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css' />
+    <script type='text/javascript' src='http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js' async='async'></script>
+    <script type='text/javascript' src='http://alexgorbatchev.com/pub/sh/current/scripts/shAutoloader.js' async='async'></script> -->
 
-    <script type="text/javascript">/* <![CDATA[ */
+    <link rel='stylesheet' type='text/css' href='seqrentry-0.9/seqrentry.css' />
+    <script type='text/javascript' src='seqrentry-0.9/seqrentry.js' async='async'></script>
+    <script type='text/javascript'>var SEQRENTRY_PROXY_URL = "/", SEQRENTRY_REALM = "seqrentry.net/demo";</script>
+
+    <script type='text/javascript'>/* <![CDATA[ */
     (function() {
         var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
         s.type = 'text/javascript';
@@ -42,69 +48,74 @@
       <header>
         <hgroup>
           <h1><a href='#'>SeQRentry.NET</a></h1>
-          <h2>A safer Internet</h2>
+          <h2>A Safer Internet</h2>
         </hgroup>
       </header>
 
       <section>
         <div class='columns'>
-        <h1>Mission.</h1>
+        <h1>Mission</h1>
 
         <p>We're here to make the Internet a safer place. That's all.</p>
 
         <p>Specifically, our mission is to make hacker attacks against
         <a href="https://www.google.com/search?q=password+breaches&amp;tbm=nws">
-        password databases</a> a thing of the past. And as a side
-        effect, we'll also make break-ins by password guessing a thing
-        of the past.</p>
+        password databases</a> a thing of the past. As a side effect,
+        we'll also make break-ins by password guessing a thing of the
+        past.</p>
 
-        <h1>Goal.</h1>
+        <h1>Goal</h1>
 
         <p>A web site's password database is often only interesting
         because the passwords found inside might be used to unlock
         accounts at other, more sensitive, services.</p>
 
         <p>Our goal is to make any stolen password obtained from a
-        site or service breach unusable and uninteresting, by making
-        sure all passwords are cryptographically strong and never,
-        ever reused between different accounts.</p>
+        data breach unusable and uninteresting, by making sure all
+        passwords are cryptographically strong and never, ever reused
+        between different accounts.</p>
 
-        <h1>Means.</h1>
+        <h1>Means</h1>
 
         <p>The <cite>SeQRentry</cite> (<q>secure entry</q>) app
         generates and stores strong, random and unique passwords for
         you, on the only device you <em>always</em> have at hand: your
         phone.</p>
 
-        <p>Any system trying to replace a simple username and password
-        box that is difficuly to use, difficult to implement,
-        expensive or not flexible enough is doomed to
-        fail. Fortunately, <cite>SeQRentry</cite> is nothing of the
-        kind.</p>
+        <p>We believe in evolution over revolution and we're pragmatic
+        enough to accept that passwords will be with us for a long,
+        long time. Any system trying to replace a simple username and
+        password box that is difficult to use, difficult to implement,
+        expensive or not flexible enough is doomed to fail.</p>
+
+        <p>Fortunately, <cite>SeQRentry</cite> is nothing of the
+        kind. Here's an example of the <q>not difficult to use</q>
+        part: Scan a QR code. Enter PIN. Boom &#x2014; You're logged
+        in.</p>
 
         <p>Head over to the <a href="#demo">demo section</a> to see
         <cite>SeQRentry</cite> in action.</p>
 
-        <h1>Help.</h1>
+        <h1>Help</h1>
 
         <p>You can help us achieve our goal in serveral ways:</p>
 
-        <ul>
+        <ul class="para">
           <li>Site owners can <a href="#webmasters">implement
           it</a> on their web site.</li>
           <li>Developers can help by improving the code, writing
           browser extensions or adding support in their existing
           keyring apps.</li>
           <li>Artists can make this web site and the apps pretty.</li>
-          <li>End-users can help us improve the usability and find
-          bugs.</li>
+          <li>End-users can spread the word, help us improve the
+          usability and find bugs.</li>
         </ul>
 
         <p>Last, but not least: you're all encouraged to donate to the
         project.</p>
 
-        <ul class="no-bullet">
-          <li><img src="http://en.bitcoin.it/w/images/en/c/cb/BC_Logotype.png" height="20"/> <em>19HaCoPpzd64T8TUBa3AtQKsP2aEgCJNSK</em></li>
+        <ul class="para no-bullet">
+          <li><img src="//en.bitcoin.it/w/images/en/c/cb/BC_Logotype.png" height="20"/> <em>19HaCoPpzd64T8TUBa3AtQKsP2aEgCJNSK</em></li>
           <li><a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://seqrentry.net/"></a></li>
           <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="paypal">
 <input type="hidden" name="cmd" value="_s-xclick" />
@@ -142,6 +153,112 @@
             <td><img src="gfx/App-Store-Badge-EN-0609-2.png" /></td>
           </tr>
         </table>
+      </section>
+    </article>
+
+
+    <article id="webmasters">
+      <header>
+        <hgroup>
+          <h1><a href='#'>SeQRentry.NET</a></h1>
+          <h2>For Site Owners</h2>
+        </hgroup>
+      </header>
+
+      <section>
+        <h1>QuickStart</h1>
+
+        <p>Adding <cite>SeQRentry</cite> to a web site is easy. Begin
+        by importing the CSS and JavaScript file inside your
+        <code>&lt;head></code> section:</p>
+
+        <pre class="prettyprint">
+&lt;html>
+ &lt;head>
+  &#8230;
+  &lt;link href='http://seqrentry.net/seqrentry-0.9/seqrentry-min.css' rel='stylesheet' type='text/css' />
+  &lt;script src='http://seqrentry.net/seqrentry-0.9/seqrentry-min.js' type='text/javascript' async='async'>&lt;/script>
+  &#8230;</pre>
+
+        <div class="columns">
+          <p>Next, you need to mark up your input fields. This is done
+          by adding a <code>data-seqrentry-type</code> attribute to
+          your username and password input fields. The attribute value
+          should be one of the following:</p>
+
+          <ul>
+            <li><code>username</code></li>
+            <li><code>password</code></li>
+            <li><code>new-password</code></li>
+          </ul>
+
+          <p>Finally, you need to add a <cite>SeQRentry</cite> action
+          button. We recommend that you use a <code>&lt;button></code>
+          element, but anything that can contain HTML markup is
+          fine. Add <code>data-seqrentry-type</code> attribute with
+          one of the following values:</p>
+
+          <ul>
+            <li><code>register</code></li>
+            <li><code>login</code></li>
+            <li><code>change</code></li>
+          </ul>
+        </div>
+
+        <pre class="prettyprint">
+&lt;form>
+  &lt;input type="text"     name="username" size="30" data-seqrentry-type="username" /> &lt;br/>
+  &lt;input type="password" name="password" size="30" data-seqrentry-type="password" /> &lt;br/>
+  &lt;button data-seqrentry-type="login">&lt;/button> &lt;br/>
+  &lt;input type="submit" value="Log in" />
+&lt;/form></pre>
+
+        <div class="columns">
+          <p>And that's it. When the user clicks on the
+          <cite>SeQRentry</cite> button, a QR code will be shown. Once
+          scanned, the marked-up input fields are automatically
+          populated with the credentials from the user's phone.</p>
+
+          <p>Check out the <a href="#demo">demo section</a> and look
+          at the source code of this page for a live example.</p>
+        </div>
+
+        <h1>How it works</h1>
+
+        <div class="columns">
+          <p>When the user clicks on a <cite>SeQRentry</cite> action
+          button, a random 128-bit key is generated and a long-polling
+          connection to one of the <cite>SeQRentry</cite> proxy servers
+          is opened. The key, details about the proxy server and a few
+          more things are then encoded as a QR code and displayed
+          on-screen.</p>
+
+          <p>When the phone app has retrieved or generated a password,
+          it derives a new key based on the one from the QR code,
+          encrypts the password and sends it to the proxy server. The
+          proxy relays the information back to the browser, which
+          decrypts the password and inserts it into the password box.</p>
+
+          <p>The important thing to remember here is that the
+          credentials that are sent from the phone to the web browser
+          (via the proxy server) are encrypted with a one-time pad,
+          derived from a random 128-bit key which is never
+          reused. That key is <em>never</em> transmitted on the
+          network; Instead, it is sent <q>over the air</q> directly
+          from the computer's screen to the phone's camera.</p>
+        </div>
+
+        <h1>Advanced configuration</h1>
+
+        <div class="columns">
+          <p>First of all, in production, you definitely should
+          download the CSS and JavaScript files and serve them from
+          your own site. When it comes to your user's credentials, you
+          should trust <em>nobody</em> except yourself.</p>
+
+          <p>Having said that, let's look at how you can customize
+          <cite>SeQRentry</cite>.</p>
+        </div>
       </section>
     </article>
 
@@ -230,9 +347,9 @@
 
         <form class='columns'>
           <p>Wondering what's going on? This page uses the
-          'data-seqrentry-func' attribute to get notified when the
-          forms fields are populated, and displays each action in the
-          following event log.</p>
+          <code>data-seqrentry-func</code> attribute to get notified
+          when the forms fields are populated, and displays each
+          action in the following event log.</p>
 
           <fieldset>
             <legend>Event log</legend>

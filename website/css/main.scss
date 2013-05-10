@@ -53,6 +53,13 @@ ul li {
     margin-left: 20px;
 }
 
+pre, tt, code {
+    font-family: 'Source Code Pro', 'Andale Mono', monospace;
+    font-style:  normal;
+    font-weight: 300;
+    font-size:   16px;
+}
+
 article {
     padding: 15px 0px 15px 0px;
 }
@@ -126,12 +133,16 @@ section {
         margin-bottom: 15px;
     }
 
+    h1:after {
+        content: '.';
+    }
+
     h2 {
         font-size:     24px;
         margin-bottom: 10px;
     }
 
-    p, li {
+    p, ul, ul.para li {
         margin-top:    0px;
         margin-bottom: 15px;
         line-height:   1.5;
@@ -153,6 +164,14 @@ section {
 
 .paypal {
     display: inline-block;
+}
+
+.columns pre {
+    display: inline-block;
+}
+
+pre.prettyprint {
+    width: auto !important;
 }
 
 cite, em {
