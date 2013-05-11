@@ -10,7 +10,7 @@ var Random = {
     });
 
     window.addEventListener("scroll", function(ev) {
-      Random.addRitardandoEntropy(ev.type, ev.type + ev.timeStamp);
+      Random.addRitardandoEntropy(ev.type, ev.type + ev.timeStamp + window.pageXOffset + window.pageYOffset);
     });
 
     window.addEventListener("mousemove", function(ev) {
@@ -54,6 +54,14 @@ var Random = {
     }
 
     Random.addEntropy(plugins.join(''));
+
+    // Some browsers have a strong RNG -- use it if available
+    try {
+      var random = new Uint32Array(8); // 256 bits
+      window.crypto.getRandomValues(random);
+      Random.addEntropy(Array.apply([], random).toString());
+    }
+    catch (ignored) {}
   },
 
   // Gather entropy
