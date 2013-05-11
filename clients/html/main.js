@@ -258,7 +258,7 @@ function call_func(type, elem, value) {
     var rc = new Function('type', 'value', elem.getAttribute(FUNC_ATTR)).call(elem, type, value);
     var ev;
 
-    if (rc !== false) {
+    if (rc !== null) {
         value = rc !== undefined ? rc : value;
 
         if (value !== undefined && value !== '') {
