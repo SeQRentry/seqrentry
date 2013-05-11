@@ -23,9 +23,6 @@
     <script type='text/javascript' src='js/index.js'></script>
 
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=sunburst"></script>
-<!--    <link rel='stylesheet' type='text/css' href='http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css' />
-    <script type='text/javascript' src='http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js' async='async'></script>
-    <script type='text/javascript' src='http://alexgorbatchev.com/pub/sh/current/scripts/shAutoloader.js' async='async'></script> -->
 
     <link rel='stylesheet' type='text/css' href='seqrentry-0.9/seqrentry.css' />
     <script type='text/javascript' src='seqrentry-0.9/seqrentry.js' async='async'></script>
@@ -62,7 +59,7 @@
         <a href="https://www.google.com/search?q=password+breaches&amp;tbm=nws">
         password databases</a> a thing of the past. As a side effect,
         we'll also make break-ins by password guessing a thing of the
-        past.</p>
+        past as well.</p>
 
         <h1>Goal</h1>
 
@@ -98,32 +95,39 @@
 
         <h1>Help</h1>
 
-        <p>You can help us achieve our goal in serveral ways:</p>
+        <p>You can help us achieve our goal in several ways:</p>
 
-        <ul class="para">
+        <ul>
           <li>Site owners can <a href="#webmasters">implement
           it</a> on their web site.</li>
+
           <li>Developers can help by improving the code, writing
           browser extensions or adding support in their existing
-          keyring apps.</li>
+          key ring applications.</li>
+
           <li>Artists can make this web site and the apps pretty.</li>
+
           <li>End-users can spread the word, help us improve the
           usability and find bugs.</li>
+
+          <li>Security experts can shoot holes in the idea and then
+          suggest how to plug them.</li>
         </ul>
 
         <p>Last, but not least: you're all encouraged to donate to the
         project.</p>
 
-        <ul class="para no-bullet">
-          <li><img src="//en.bitcoin.it/w/images/en/c/cb/BC_Logotype.png" height="20"/> <em>19HaCoPpzd64T8TUBa3AtQKsP2aEgCJNSK</em></li>
-          <li><a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://seqrentry.net/"></a></li>
-          <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="paypal">
+
+        <p><img src="//en.bitcoin.it/w/images/en/c/cb/BC_Logotype.png" height="20" alt="Bitcoin"/> <em>19HaCoPpzd64T8TUBa3AtQKsP2aEgCJNSK</em></p>
+
+        <p><a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://seqrentry.net/"></a></p>
+
+        <p><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="paypal">
 <input type="hidden" name="cmd" value="_s-xclick" />
 <input type="hidden" name="hosted_button_id" value="J7F6RT2LT23R4" />
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-</form></li>
-        </ul>
+</form></p>
 
 <!--
         <p><cite>SeQRentry</cite> is a highly secure, QR-based method
@@ -150,7 +154,7 @@
 
         <table style='width: 100%; text-align: center;'>
           <tr>
-            <td><img src="gfx/App-Store-Badge-EN-0609-2.png" /></td>
+            <td><img src="gfx/App-Store-Badge-EN-0609-2.png" alt="Available on the App Store"/></td>
           </tr>
         </table>
       </section>
@@ -166,12 +170,24 @@
       </header>
 
       <section>
-        <h1>QuickStart</h1>
+        <h1>Quick Start</h1>
+
+        <div class="columns">
+        <p>First of all: this is <em>pre-release software</em>. Before
+        we hit version 1.0, any aspect of the information below may
+        change!</p>
+
+        <p><cite>SeQRentry</cite> is designed to plug right into your
+        existing infrastructure, without modification. There is really
+        nothing new here; if you are currently using usernames and
+        passwords for authentication, you're ready to go. The system
+        even plays nice with the browsers' built-in capability to
+        remember web site credentials!</p>
 
         <p>Adding <cite>SeQRentry</cite> to a web site is easy. Begin
         by importing the CSS and JavaScript file inside your
         <code>&lt;head></code> section:</p>
-
+        </div>
         <pre class="prettyprint">
 &lt;html>
  &lt;head>
@@ -181,10 +197,15 @@
   &#8230;</pre>
 
         <div class="columns">
+          <p>(A word of caution: in production, you should download
+          the CSS and JavaScript files and serve them from your own
+          site. When it comes to your user's credentials, you should
+          trust <em>nobody</em> except yourself.)</p>
+
           <p>Next, you need to mark up your input fields. This is done
           by adding a <code>data-seqrentry-type</code> attribute to
-          your username and password input fields. The attribute value
-          should be one of the following:</p>
+          your username and password input fields. The attribute's
+          value should be one of the following:</p>
 
           <ul>
             <li><code>username</code></li>
@@ -223,7 +244,7 @@
           at the source code of this page for a live example.</p>
         </div>
 
-        <h1>How it works</h1>
+        <h1>How It Works</h1>
 
         <div class="columns">
           <p>When the user clicks on a <cite>SeQRentry</cite> action
@@ -237,27 +258,194 @@
           it derives a new key based on the one from the QR code,
           encrypts the password and sends it to the proxy server. The
           proxy relays the information back to the browser, which
-          decrypts the password and inserts it into the password box.</p>
+          decrypts it and inserts it into the username and password
+          boxes.</p>
 
           <p>The important thing to remember here is that the
           credentials that are sent from the phone to the web browser
           (via the proxy server) are encrypted with a one-time pad,
-          derived from a random 128-bit key which is never
-          reused. That key is <em>never</em> transmitted on the
-          network; Instead, it is sent <q>over the air</q> directly
-          from the computer's screen to the phone's camera.</p>
+          derived from a random 128-bit key, which is never
+          reused. That key is <em>never transmitted
+          electronically</em> over the network; instead, it is sent
+          <q>over the air</q> directly from the computer's screen to
+          the phone's camera using plain ol' visible light.</p>
+
+          <p>The entropy for the random keys is collected from various
+          device properties and input events such as mouse movements,
+          orientation sensors etc. If available,
+          <code>window.crypto.getRandomValues()</code> is also used to
+          add another 256 bits of <q>true</q> randomness.</p>
         </div>
 
-        <h1>Advanced configuration</h1>
+        <h1>Advanced Configuration</h1>
 
         <div class="columns">
-          <p>First of all, in production, you definitely should
-          download the CSS and JavaScript files and serve them from
-          your own site. When it comes to your user's credentials, you
-          should trust <em>nobody</em> except yourself.</p>
+          <p>A <cite>SeQRentry</cite> account is made up of three
+          components:</p>
 
-          <p>Having said that, let's look at how you can customize
-          <cite>SeQRentry</cite>.</p>
+          <ul>
+            <li>A <em>username</em>, which can be any string.</li>
+
+            <li>A randomly generated <em>password</em>, which is just
+            22 digits and letters from the Base-64 alphabet, encoding
+            a 128 bit random number.</li>
+
+            <li>A <em>realm</em>, which identifies your site. By
+            default, the realm is equal to the host part of your web
+            page's URL.</li>
+          </ul>
+
+          <p>These credentials are relayed via a proxy server to the
+          user's browser. By default, a public proxy server that we
+          provide is used.</p>
+
+          <p>The credentials are automatically inserted into
+          <code>&lt;input></code> fields that you tag using the
+          <code>data-seqrentry-type</code> attribute. When searching
+          for such <code>&lt;input></code> fields, only elements
+          belonging to the same <code>&lt;form></code> that contained
+          the button triggering the QR code are considered. This
+          allows you to have multiple <cite>SeQRentry</cite> forms on
+          the same page.</p>
+
+          <p>These are the defaults. You may change these in several
+          ways.</p>
+
+          <h2>Changing The Realm</h2>
+
+          <p>To set the realm (for instance, to change
+          <em>www.yoursite.com</em> to <em>Your Site</em>), add a
+          global JavaScript variable named
+          <code>SEQRENTRY_REALM</code>, like this:</p>
+
+          <pre class="prettyprint">
+&lt;script type='text/javascript'>
+  var SEQRENTRY_REALM = "Your Site";
+&lt;/script></pre>
+
+          <p>Another option is to add a
+          <code>data-seqrentry-realm</code> attribute to your
+          <code>&lt;form></code> element:</p>
+          
+          <pre class="prettyprint">
+&lt;form data-seqrentry-realm="Your Site" action="&#8230;" &#8230;>
+  &#8230;
+&lt;form></pre>
+
+          <h2>Strange Forms</h2>
+
+          <p>Speaking of <code>&lt;form></code> elements, it could be
+          that there are no <code>&lt;form></code> elements at all on
+          your pages. In this case, use a
+          <code>data-seqrentry-type</code> attribute on any element
+          surrounding your input fields and action button:</p>
+
+          <pre class="prettyprint">
+&lt;div data-seqrentry-type="form">
+  &lt;input data-seqrentry-type="username" &#8230; />
+  &#8230;
+&lt;div></pre>
+
+          <h2>Fixing the Username</h2>
+
+          <p>Some systems only have one username, or maybe the
+          username is determined by some other means, such as a client
+          certificate. In this case, you can specify the username
+          manually, by adding a <code>data-seqrentry-username</code>
+          attribute to your <code>&lt;form></code> element:</p>
+
+          <pre class="prettyprint">
+&lt;form data-seqrentry-username="Administrator" action="&#8230;" &#8230;>
+  &#8230;
+&lt;form></pre>
+
+          <h2>Running Your Own Proxy Servers</h2>
+
+          <p>Depending on a third party in order to let your users log
+          in to your site is probably simply not an
+          option. Fortunately, the <cite>SeQRentry</cite> proxy server
+          is open source and written in Python, which means you can
+          &#x2014; and should &#x2014; run it almost anywhere. Then,
+          simply let the JavaScript code know where to find it by
+          setting a global variable named
+          <code>SEQRENTRY_PROXY_URL</code>:</p>
+
+          <pre class="prettyprint">
+&lt;script type='text/javascript'>
+  var SEQRENTRY_PROXY_URL = "http://sq.yoursite.com:8080/";
+&lt;/script></pre>
+
+          <p>You can use round-robin DNS to spread the load between
+          several proxy servers, if required.</p>
+
+          <h2>Callbacks</h2>
+
+          <p>You can instruct <cite>SeQRentry</cite> to invoke a
+          JavaScript code snippet for almost any action it takes,
+          which is very powerful and can be used for many things,
+          including:</p>
+
+          <ul>
+            <li>Getting informed when the QR banner is opened or
+            cancelled.</li>
+
+            <li>Automatically submitting the form when the username
+            and password has been filled in, making the login sequence
+            even more attractive to your users.</li>
+
+            <li>Handling the received credentials in more advanced
+            ways, instead of just having them automatically inserted
+            into <code>&lt;input></code> fields.</li>
+
+            <li>Working around password policy restrictions. Some
+            system (God forbid) might only handle passwords shorter
+            than 8 or 16 characters, or maybe a certain number of
+            special characters or digits are required. Callbacks allow
+            you to programmatically transpose the
+            <cite>SeQRentry</cite>-generates passwords in any way
+            you'd like.</li>
+          </ul>
+
+          <p>You can add a callback on any element marked with a
+          <code>data-seqrentry-type</code> attribute, plus the actual
+          <code>&lt;form></code> element itself.</p>
+
+          <p>Callbacks receive two arguments: <code>type</code> and
+          <code>value</code>. <code>type</code> is set to whatever
+          value the <code>data-seqrentry-type</code> attribute had,
+          and <code>value</code> is the actual value (for instance, a
+          username or a password). Additionally, the <code>this</code>
+          variable is bound to the actual HTML DOM element.</p>
+
+          <p>For <code>&lt;form></code> callbacks, the
+          <code>type</code> is simply set to <code>form</code> and the
+          value is one of <code>open</code>, <code>cancel</code> or
+          <code>success</code>.</p>
+
+          <p>Callbacks can modify the processing in three ways:</p>
+
+          <ul>
+            <li>A callback that returns nothing or
+            <code>undefined</code> does not modify the processing in
+            any way.</li>
+          
+            <li>If a callback returns <code>null</code>, processing
+            for this field simply stops and nothing is inserted into
+            the input field in question.</li>
+
+            <li>Any other value is treated as the value to be inserted
+            into the current input field.</li>
+          </ul>
+
+          <pre class="prettyprint">
+&lt;form data-seqrentry-func='alert(type + ": " + value);'>
+  &lt;input data-seqrentry-type="username" 
+         data-seqrentry-func='return value.toLowerCase();'/>
+  &#8230;
+&lt;/form></pre>
+
+          <p>The small example above logs form events and makes sure
+          that any username contains lower case letters only.</p>
         </div>
       </section>
     </article>
@@ -297,7 +485,7 @@
         </form>
 
 
-        <h1>Sign in</h1>
+        <h1>Sign In</h1>
 
         <form class='columns' data-seqrentry-func='demo_log(this, type, value);'>
           <p>Once you have registered an account, it's easy to sign
@@ -343,7 +531,7 @@
         </form>
 
 
-        <h1>Event log</h1>
+        <h1>Event Log</h1>
 
         <form class='columns'>
           <p>Wondering what's going on? This page uses the
@@ -354,7 +542,7 @@
           <fieldset>
             <legend>Event log</legend>
 
-            <div id='demo-log'/>
+            <div id='demo-log'></div>
           </fieldset>
         </form>
 
