@@ -80,7 +80,7 @@ function derive_key(key, type, length) {
     return result.substring(0, length);
 }
 
-function decode_password(key, type, password) {
+function decode_param(key, type, password) {
     var result = [];
 
     password = Base64.decode(password, Base64.urlCS);
@@ -344,14 +344,8 @@ SeQRentry['proxyResponse'] = function(status, params) {
             if (type == 'form') {
                 form = elem;
             }
-            else if (type == 'username') {
-                call_func(type, elem, params['username']);
-            }
-            else if (type == 'password') {
-                call_func(type, elem, decode_password(channel.key, 'password', params['password']));
-            }
-            else if (type == 'new-password') {
-                call_func(type, elem, decode_password(channel.key, 'new-password', params['new-password']));
+            else {
+                call_func(type, elem, decode_param(channel.key, type, params[type]));
             }
         });
 
