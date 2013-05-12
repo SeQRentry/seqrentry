@@ -13,6 +13,18 @@ $back: #fffff8;
 $text: #033;
 $shadow: #ccc;
 
+@media (max-width: 419px) {
+    @-ms-viewport {
+        width: 420px;
+    }
+}
+
+@media (max-width: 719px) {
+    nav {
+        display: none;
+    }
+}
+
 html {
     overflow-y: scroll;
 }
@@ -48,6 +60,13 @@ a:active  { text-decoration:underline; }
 q:before  {  content:     '\201C'; }
 q:after   {  content:     '\201D'; }
 
+sup { vertical-align: top; }
+sub { vertical-align: sub;   }
+
+sub, sup {
+    font-size:   67%;
+}
+
 ul li {
     list-style:  square inside;
     margin-left: 20px;
@@ -60,8 +79,30 @@ pre, tt, code {
     font-size:   16px;
 }
 
+nav {
+    position: absolute;
+    top:      30px;
+    right:    30px;
+    z-index:  1;
+
+    img {
+        float:  right;
+        margin: 0px 15px 0px 15px;
+    }
+
+    ul {
+        float:   right;
+    }
+
+    li {
+        list-style-type: none;
+        margin:          0px;
+    }
+}
+
 article {
-    padding: 15px 0px 15px 0px;
+    padding:  15px 0px 15px 0px;
+    z-index:  0;
 }
 
 article.stacked {
@@ -91,7 +132,7 @@ header {
         display:          inline-block;
         border:           2px solid $text;
         margin-left:      -30px;
-        padding:          20px 30px 20px 30px;
+        padding:          20px 30px 10px 30px;
         border-radius:    15px;
         background-color: $fill;
         color:            $back;
@@ -114,7 +155,8 @@ header {
         font-weight: 100;
         font-size:   32px;
 
-        text-align: right;
+        margin-top:  5px;
+        text-align:  right;
     }
 }
 
@@ -152,16 +194,39 @@ section {
 
 }
 
+footer {
+    clear:      both;
+    text-align: center;
+    font-size:  67%;
+}
+
 .columns {
     @include prefix(columns, 420px auto);
 }
 
-.FlattrButton {
-#    float: right;
+.text-right {
+    text-align: right;
 }
 
 .paypal {
     display: inline-block;
+}
+
+.apps {
+    padding-top: 20px;
+
+    p {
+        margin:     0 auto 0 auto;
+        display:    inline-block;
+        width:      32%;
+        min-width:  208px;
+        text-align: center;
+        font-style: italic;
+    }
+
+    img {
+        height: 67px;
+    }
 }
 
 pre.prettyprint {

@@ -5,13 +5,6 @@
     <title>SeQRentry.NET &#x2014; Secure Web Accounts</title>
 
     <meta name='viewport' content='width=420, initial-scale=1.0' />
-    <style>
-      @media (max-width: 420px) {
-          @-ms-viewport {
-              width: 420px;
-          }
-      }
-    </style>
 
     <link rel='stylesheet' type='text/css' href='css/main.css' />
     <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Oregano:400italic' />
@@ -22,7 +15,7 @@
     <script type='text/javascript' src='js/jquery.ba-hashchange.min.js'></script>
     <script type='text/javascript' src='js/index.js'></script>
 
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=sunburst"></script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=sunburst" async='async' defer='defer'></script>
 
     <link rel='stylesheet' type='text/css' href='seqrentry-0.9/seqrentry.css' />
     <script type='text/javascript' src='seqrentry-0.9/seqrentry.js' async='async'></script>
@@ -41,6 +34,24 @@
 </head>
 
   <body>
+    <nav>
+      <ul>
+        <li><a href="https://github.com/SeQRentry">Source Code</a></li>
+        <li><a href="https://groups.google.com/d/forum/seqrentry-developers">Mailing Lists</a></li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+      </ul>
+
+      <img src="gfx/SeQRentry-logo.png" alt="SeQRentry logo" />
+
+      <ul class="text-right">
+        <li><a href="#">Home</a></li>
+        <li><a href="#webmasters">Webmasters</a></li>
+        <li><a href="#3rd-party">URL Scheme</a></li>
+        <li><a href="#demo">Demo</a></li>
+      </ul>
+    </nav>
+
     <article id="main" class="active">
       <header>
         <hgroup>
@@ -53,7 +64,8 @@
         <div class='columns'>
         <h1>Mission</h1>
 
-        <p>We're here to make the Internet a safer place. That's all.</p>
+        <p>We're here to make the Internet a safer place. Nothing
+        more.</p>
 
         <p>Specifically, our mission is to make hacker attacks against
         <a href="https://www.google.com/search?q=password+breaches&amp;tbm=nws">
@@ -79,6 +91,10 @@
         you, on the only device you <em>always</em> have at hand: your
         phone.</p>
 
+        <p>These passwords are then automatically sent &#x2014;
+        encrypted, of course &#x2014; from your phone to the login
+        dialog every time you log in.</p>
+
         <p>We believe in evolution over revolution and we're pragmatic
         enough to accept that passwords will be with us for a long,
         long time. Any system trying to replace a simple username and
@@ -87,7 +103,7 @@
 
         <p>Fortunately, <cite>SeQRentry</cite> is nothing of the
         kind. Here's an example of the <q>not difficult to use</q>
-        part: Scan a QR code. Enter PIN. Boom &#x2014; You're logged
+        part: Scan a QR code. Enter PIN. Boom &#x2014; you're logged
         in.</p>
 
         <p>Head over to the <a href="#demo">demo section</a> to see
@@ -101,9 +117,14 @@
           <li>Site owners can <a href="#webmasters">implement
           it</a> on their web site.</li>
 
-          <li>Developers can help by improving the code, writing
-          browser extensions or adding support in their existing
-          key ring applications.</li>
+          <li>Developers can help by <a
+          href="https://github.com/SeQRentry">improving the code</a>,
+          writing browser extensions or writing plugins for non-web
+          systems such as Windows or Gnome.</li>
+
+          <li>3<sup>rd</sup> party developers can help by adding
+          support in their <a href="#3rd-party">existing key ring
+          applications</a>.</li>
 
           <li>Artists can make this web site and the apps pretty.</li>
 
@@ -129,35 +150,34 @@
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
 </form></p>
 
-<!--
-        <p><cite>SeQRentry</cite> is a highly secure, QR-based method
-        to sign in to web sites online by using your cell phone's
-        camera. The phone app automatically generates unique,
-        cryptographically strong passwords for every site you enable
-        &#x2014; <cite>SeQRentry</cite> passwords are <em>never</em>
-        reused across different accounts.  Yet, the only thing you
-        need to remember in order to log in is your phone and a
-        personal PIN code.</p>
-
-        <p>Any web site that uses a username and password can be
-        <cite>SeQRentry</cite>-enabled within minutes. The system also
-        works well with the browser's built-in ability to remember
-        account names and passwords.</p>
-
-        <p>Strong, unique passwords on the Internet have never been
-        easier, and now there really are no excuses for reusing the
-        same password over and over again. Let's make the web a better
-        place!</p>
--->
-
         </div>
 
-        <table style='width: 100%; text-align: center;'>
-          <tr>
-            <td><img src="gfx/App-Store-Badge-EN-0609-2.png" alt="Available on the App Store"/></td>
-          </tr>
-        </table>
+        <div class="apps">
+          <p>
+            <img src="https://medwatcher.org/images/android-app-on-google-play.svg" alt="Android App on Google Play"/>
+            <br/>
+            Coming soon
+          </p>
+
+          <p>
+            <img src="gfx/App_Store_Badge_EN_0609-194x67.png" alt="Available on the App Store"/>
+            <br/>
+            <a href="mailto:info@seqrentry.net?subject=iOS%20App&amp;body=Please%20describe%20yourself%20and%20what%20you%20can%20do%20to%20help%20us.">Ask for it!</a>
+          </p>
+
+          <p>
+            <img src="gfx/WindowsPhone_208x67_blu.png" alt="Windows Phone Store"/>
+            <br/>
+            Coming soon
+          </p>
+        </div>
       </section>
+
+      <footer>
+        <p>Copyright 2012-2013 Martin Blom. All rights
+        reserved. Contact us at <a
+        href="mailto:info@seqrentry.net?subject=About%20SeQRentry">info@seqrentry.net</a>.</p>
+      </footer>
     </article>
 
 
@@ -275,6 +295,13 @@
           orientation sensors etc. If available,
           <code>window.crypto.getRandomValues()</code> is also used to
           add another 256 bits of <q>true</q> randomness.</p>
+
+          <p>Note: just because <cite>SeQRentry</cite> passwords are
+          cryptographically strong and never reused doesn't mean
+          <em>all</em> your users' passwords are. <em>Of course</em>
+          you will still be using PBKDF2, bcrypt or scrypt with a high
+          iteration count before storing any password in a
+          database.</p>
         </div>
 
         <h1>Advanced Configuration</h1>
@@ -395,7 +422,9 @@
 
             <li>Handling the received credentials in more advanced
             ways, instead of just having them automatically inserted
-            into <code>&lt;input></code> fields.</li>
+            into <code>&lt;input></code> fields. You could even use
+            <cite>SeQRentry</cite> as the <em>only</em> way to log in
+            to your site.</li>
 
             <li>Working around password policy restrictions. Some
             system (God forbid) might only handle passwords shorter
@@ -447,6 +476,19 @@
           <p>The small example above logs form events and makes sure
           that any username contains lower case letters only.</p>
         </div>
+      </section>
+    </article>
+
+    <article id="3rd-party">
+      <header>
+        <hgroup>
+          <h1><a href='#'>SeQRentry.NET</a></h1>
+          <h2>For 3<sup>rd</sup> Party Developers</h2>
+        </hgroup>
+      </header>
+
+      <section>
+        <h1>The QR Codes</h1>
       </section>
     </article>
 
