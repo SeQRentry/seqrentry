@@ -36,6 +36,20 @@ $(document).ready(function() {
         $('article').each(function (idx, el) {
             $(el).addClass('stacked');
         });
+
+        // Track page views
+        ga('send', 'pageview', {
+            'page':  location.pathname + location.search + location.hash,
+            'title': $(el).find('header h2').text()
+        });
+
+        $('#link-github').on('click', function() {
+            ga('send', 'event', 'link', 'click', 'gitgub');
+        });
+
+        $('#link-group').on('click', function() {
+            ga('send', 'event', 'link', 'click', 'group-developers');
+        });
     })
 
     $(window).hashchange();
