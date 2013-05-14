@@ -91,6 +91,10 @@ nav {
     right:    30px;
     z-index:  1;
 
+    a {
+        color: $text;
+    }
+
     img {
         float:  right;
         margin: 0px 15px 0px 15px;
