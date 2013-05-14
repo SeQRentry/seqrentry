@@ -1,6 +1,12 @@
 
 @import 'reset';
 
+/* IE8 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+    display:block;
+}
+
+
 @mixin prefix($name, $value) {
   #{$name}:         $value;
   -moz-#{$name}:    $value;
