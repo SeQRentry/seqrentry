@@ -17,7 +17,8 @@ $fill: #7EA7D8;
 $body: #fcffff;
 $back: #fffff8;
 $text: #033;
-$shadow: #ccc;
+$shadow: rgba(0,0,0,0.4);
+//$shadow: #ccc;
 
 @media (max-width: 419px) {
     @-ms-viewport {
@@ -140,13 +141,17 @@ article.removed {
 header {
     hgroup {
         display:          inline-block;
-        border:           2px solid $text;
         margin-left:      -30px;
-        padding:          20px 30px 10px 30px;
-        border-radius:    15px;
+        padding:          20px 30px 20px 30px;
         background-color: $fill;
         color:            $back;
-        box-shadow:       0px 0px 40px $shadow;
+
+//        border:           2px solid $text;
+//        border-radius:    15px;
+//        box-shadow:       0px 0px 40px $shadow;
+
+	border-radius:    10px;
+	box-shadow:       0px 1px 6px $shadow;
     }
 
     a {
@@ -173,12 +178,16 @@ header {
 section {
     margin-top:       -15px;
     padding:          25px 10px 10px 10px;
+    margin-bottom:    20px;
     clear:            both;
-    border:           2px solid $text;
-    border-radius:    15px;
     background-color: $back;
 
-    box-shadow:       0px 0px 40px $shadow;
+//    border:           2px solid $text;
+//    border-radius:    15px;
+//    box-shadow:       0px 0px 40px $shadow;
+
+    border-radius:    10px;
+    box-shadow:       0px 1px 6px $shadow;
 
     h1 {
         font-size:      32px;
