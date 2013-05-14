@@ -21,7 +21,7 @@ window.addEventListener('load', function load(ev){
 /** @const */ var BUTTON_CLASS   = 'seqrentry-button';
 
 /** @const */ var SEQRENTRY_URL = 'http://seqrentry.net/';
-/** @const */ var PROXY_URL     = 'http://seqrentry.net/';
+/** @const */ var PROXY_URL     = 'https://seqrentry.net/';
 
 var channels   = /** @dict */ {}
 var channel_id = 0;
