@@ -57,7 +57,7 @@ function install_button(elem) {
             alert("No username");
         }
         else {
-            show_banner();
+            show_banner(elem);
             create_channel(elem);
         }
     }, false);
@@ -80,17 +80,17 @@ function derive_key(key, type, length) {
     return result.substring(0, length);
 }
 
-function decode_param(key, type, password) {
+function decode_param(key, type, param) {
     var result = [];
 
-    password = Base64.decode(password, Base64.urlCS);
-    key      = derive_key(Base64.decode(key, Base64.urlCS), type, password.length);
+    param = Base64.decode(param, Base64.urlCS);
+    key   = derive_key(Base64.decode(key, Base64.urlCS), type, param.length);
 
-    for (var i = 0; i < password.length; ++i) {
-        result.push(String.fromCharCode(password.charCodeAt(i) ^ key.charCodeAt(i)));
+    for (var i = 0; i < param.length; ++i) {
+        result.push(String.fromCharCode(param.charCodeAt(i) ^ key.charCodeAt(i)));
     }
 
-    return Base64.encode(result.join(''), Base64.urlCS).replace(/=+$/, '');
+    return result.join('');
 }
 
 function script_load(url) {
@@ -146,7 +146,7 @@ function make_url(button, proxy, token, key) {
         (username ? '&u=' + encodeURIComponent(username) : '')
 }
 
-function show_banner() {
+function show_banner(button) {
     var div = document.createElement('div');
 
     div.id = BANNER_ID;
@@ -154,6 +154,23 @@ function show_banner() {
     div.title = 'Click to cancel';
 
     document.body.insertBefore(div, document.body.firstChild);
+
+    var click_ev = 'ontouchstart' in window ? 'touchstart' : 'click';
+
+    window.addEventListener(click_ev, function click_hide(ev) {
+        window.removeEventListener(click_ev, click_hide, false);
+
+        hide_banner();
+
+        traverse_form(button, function(type, elem) {
+            if (type == 'form') {
+                call_func(type, elem, 'cancel');
+                return false;
+            }
+        });
+
+        close_all_channels();
+    }, false);
 }
 
 function show_qr(channel) {
@@ -187,21 +204,6 @@ function show_qr(channel) {
     document.getElementById(BANNER_ID).appendChild(can);
 
     var click_ev = 'ontouchstart' in window ? 'touchstart' : 'click';
-
-    window.addEventListener(click_ev, function click_hide(ev) {
-        window.removeEventListener(click_ev, click_hide, false);
-
-        hide_banner();
-
-        traverse_form(channel.button, function(type, elem) {
-            if (type == 'form') {
-                call_func(type, elem, 'cancel');
-                return false;
-            }
-        });
-
-        close_all_channels();
-    }, false);
 
     can.addEventListener(click_ev, function(ev) {
         ev.stopPropagation();
