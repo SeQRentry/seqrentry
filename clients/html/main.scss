@@ -9,22 +9,8 @@ $banner: #cae0d1;
 $shine:  #ed9;
 
 .seqrentry-button {
-    padding: 0px;
-    border:  2px solid #888;
-    position: relative;
-    background: #fff url(button.png) no-repeat center center;
-}
-
-.seqrentry-button img {
-    position: absolute;
-    top:      0px;
-    left:     0px;
-    width:    100%;
-}
-
-.seqrentry-button::-moz-focus-inner {
-    padding: 0px;
-    border:  none;
+    width:  100%;
+    height: 100%;
 }
 
 #seqrentry-banner {

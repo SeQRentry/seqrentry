@@ -7,9 +7,7 @@
     <meta name='viewport' content='width=420, initial-scale=0.7' />
 
     <link rel='stylesheet' type='text/css' href='css/main.css' />
-    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Oregano:400italic' />
-    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic' />
-    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Source+Code+Pro:300' />
+    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Source+Code+Pro:300|Source+Sans+Pro:300italic,300|Oregano:400italic' />
 
     <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js'></script>
     <script type='text/javascript' src='js/jquery.ba-hashchange.min.js'></script>
@@ -253,6 +251,12 @@
             <li><code>login</code></li>
             <li><code>change</code></li>
           </ul>
+
+          <p>If the element is empty, the <cite>SeQRentry</cite> logo
+          will be inserted into the element as an
+          <code>&lt;img></code> element. Otherwise, the content will
+          be left as-is. This allows you to style the action buttons
+          in any way you would like.</p>
         </div>
 
         <pre class="prettyprint">
@@ -521,6 +525,8 @@
           <p> (Leave the password field empty; the generated password
           will automatically be pasted there.)</p>
 
+          <p>The action button in this form is an empty <code>&lt;div></code> element.</p>
+
           <fieldset>
             <legend>Register</legend>
 
@@ -531,7 +537,7 @@
 
             </div>
 
-            <div class='sqbutton' style="display: inline-block; width: 80px; height: 80px" data-seqrentry-type="register"></div>
+            <div class='sqbutton' style="display: inline-block; width: 73px; height: 73px" data-seqrentry-type="register"></div>
           </fieldset>
         </form>
 
@@ -546,6 +552,8 @@
           empty. <cite>SeQRentry</cite> will let you select from a
           list of usernames used at this site.</p>
 
+          <p>The action button in this form is a <code>&lt;button></code> element with custom content.</p>
+
           <fieldset>
             <legend>Log in</legend>
 
@@ -555,7 +563,7 @@
               <input type="submit" value="Log in" />
             </div>
 
-            <button class='sqbutton' style="width: 80px; height: 80px;" data-seqrentry-type="login"></button>
+            <button data-seqrentry-type="login"><span class='logo'>SeQRentry</span> &#160; Log in</button>
           </fieldset>
         </form>
 
@@ -567,6 +575,8 @@
 
           <p>Like with sign in actions, providing a username is optional.</p>
 
+          <p>The action button in this form is an empty <code>&lt;button></code> element.</p>
+
           <fieldset>
             <legend>Change password</legend>
 
@@ -577,7 +587,7 @@
               <input type="submit" value="Update password" />
             </div>
 
-            <button class='sqbutton' style="width: 80px; height: 80px;" data-seqrentry-type="change"></button>
+            <button class='sqbutton' style="width: 73px; height: 73px;" data-seqrentry-type="change"></button>
           </fieldset>
         </form>
 

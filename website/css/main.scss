@@ -51,7 +51,7 @@ body {
     position:         relative;
 }
 
-input {
+input, button {
     font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
     font-style:  normal;
     font-weight: 300;
@@ -270,7 +270,7 @@ fieldset {
     @include prefix(column-break-inside, avoid);
 }
 
-#demo input {
+#demo input, #demo button {
     margin-bottom:    10px;
     background-color: $body;
     @include prefix(transition, background-color 0.5s ease-out);
@@ -284,10 +284,16 @@ fieldset {
 #demo .form {
     text-align:   right;
     float:        left;
+    margin-right: 10px;
 }
 
-#demo .sqbutton {
-    float:         left;
-    margin-left:   10px;
-    margin-right:  10px;
+#demo button .logo {
+    font-family: 'Oregano', cursive;
+    font-weight: 400;
+    font-style:  italic;
+}
+
+#demo .sqbutton, #demo .sqbutton::-moz-focus-inner {
+    padding:       0px;
+    border:        0px;
 }
