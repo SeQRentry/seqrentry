@@ -186,7 +186,7 @@ if __name__ == '__main__':
 
         if path:
             root = static.File(path)
-            root.contentTypes.update([{ '.svg', 'image/svg+xml' }])
+            root.contentTypes.update({ '.svg': 'image/svg+xml' })
         else:
             root = resource.Resource()
 
