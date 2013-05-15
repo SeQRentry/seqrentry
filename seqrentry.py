@@ -183,7 +183,12 @@ if __name__ == '__main__':
 
     try:
         path = os.path.abspath(args.root) + '/' if args.root else None;
-        root = static.File(path) if path else resource.Resource()
+
+        if path:
+            root = static.File(path)
+            root.contentTypes.update([{ '.svg', 'image/svg+xml' }])
+        else:
+            root = resource.Resource()
 
         root.putChild('create-proxy.js', CreateProxy('text/javascript'))
         root.putChild('create-proxy.json', CreateProxy('application/json'))
