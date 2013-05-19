@@ -33,7 +33,7 @@ seqrentry.css: main.scss
 seqrentry-min.css: main.scss
 	$(SASS)	 --style=compressed $^ $@
 
-seqrentry.js: base64.js qrcode.js sha256.js random.js main.js
+seqrentry.js: util.js base64.js qrcode.js sha256.js random.js main.js
 	(echo '(function() {'; cat $^; echo '})();') > $@
 
 seqrentry-min.js: seqrentry.js

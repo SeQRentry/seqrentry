@@ -2,10 +2,13 @@ window['SeQRentry'] = {};
 
 // Initialize everything when document is loaded
 
-window.addEventListener('load', function load(ev){
-    window.removeEventListener('load', load, false);
+var load = function(ev){
+    ev = ev || window.event;
+    remove_event('load', window, load);
     SeQRentry['install']();
-}, false);
+};
+
+add_event('load', window, load);
 
 /** @const */ var SCRIPT_ID     = 'seqrentry-script';
 /** @const */ var BANNER_ID     = 'seqrentry-banner';
@@ -42,10 +45,9 @@ function install_button(elem) {
         img.src       = BUTTON_IMAGE;
     }
 
-    elem.addEventListener('click', function(ev) {
+    add_event('click', elem, function(ev) {
+        ev = ev || window.event;
         var register = false, username;
-
-        ev.stopPropagation();
 
         traverse_form(elem, function(type, elem) {
             if (type == 'register') {
@@ -66,7 +68,9 @@ function install_button(elem) {
             show_banner(elem);
             create_channel(elem);
         }
-    }, false);
+
+	return stop_event(ev);
+    });
 
     if (elem.localName == 'button' && !elem.hasAttribute('onclick')) {
 	elem.setAttribute('onclick', 'return false;');
@@ -156,15 +160,15 @@ function show_banner(button) {
     var div = document.createElement('div');
 
     div.id = BANNER_ID;
-    div.style.top = (window.innerHeight - BANNER_HEIGHT) / 2 + 'px';
+    div.style.top = ((window.innerHeight || document.documentElement.clientHeight) - BANNER_HEIGHT) / 2 + 'px';
     div.title = 'Click to cancel';
 
     document.body.insertBefore(div, document.body.firstChild);
 
     var click_ev = 'ontouchstart' in window ? 'touchstart' : 'click';
-
-    window.addEventListener(click_ev, function click_hide(ev) {
-        window.removeEventListener(click_ev, click_hide, false);
+    var click_hide = function(ev) {
+	ev = ev || window.event;
+        remove_event(click_ev, document, click_hide);
 
         hide_banner();
 
@@ -176,7 +180,9 @@ function show_banner(button) {
         });
 
         close_all_channels();
-    }, false);
+    };
+
+    add_event(click_ev, document, click_hide);
 }
 
 function show_qr(channel) {
@@ -187,34 +193,52 @@ function show_qr(channel) {
 
     var can = document.createElement('canvas');
 
-    can.id = QRCODE_ID;
-    can.title = 'Scan to activate!';
+    if (can.getContext) {
+        can.width  = 350;
+        can.height = 350;
 
-    can.width  = 350;
-    can.height = 350;
+        var ctx = can.getContext('2d');
+        var dx  = can.width / qrcode.getModuleCount();
+        var dy  = can.height / qrcode.getModuleCount();
 
-    var ctx = can.getContext('2d');
-    var dx  = can.width / qrcode.getModuleCount();
-    var dy  = can.height / qrcode.getModuleCount();
+        for (var y = 0; y < qrcode.getModuleCount(); ++y) {
+            for (var x = 0; x < qrcode.getModuleCount(); ++x) {
+                var xs = Math.round(x * dx), xe = Math.round(x * dx + dx);
+                var ys = Math.round(y * dy), ye = Math.round(y * dy + dy);
 
-    for (var y = 0; y < qrcode.getModuleCount(); ++y) {
-        for (var x = 0; x < qrcode.getModuleCount(); ++x) {
-            var xs = Math.round(x * dx), xe = Math.round(x * dx + dx);
-            var ys = Math.round(y * dy), ye = Math.round(y * dy + dy);
-
-            ctx.fillStyle = qrcode.isDark(y, x) ? '#000' : '#fff';
-            ctx.fillRect(xs, ys, xe - xs, ye - ys);
+                ctx.fillStyle = qrcode.isDark(y, x) ? '#000' : '#fff';
+                ctx.fillRect(xs, ys, xe - xs, ye - ys);
+            }
         }
     }
+    else {
+        can = document.createElement('div');
+        var html = "<table>";
+
+        for (var y = 0; y < qrcode.getModuleCount(); ++y) {
+            html += "<tr>";
+            for (var x = 0; x < qrcode.getModuleCount(); ++x) {
+                html += "<td style='background: " + (qrcode.isDark(y, x) ? "#000" : "#fff") + ";'></td>";
+            }
+            html += "</tr>";
+        }
+
+        html += "</table>";
+        can.innerHTML = html;
+    }
+
+    can.id = QRCODE_ID;
+    can.title = 'Scan to activate!';
 
     document.getElementById(BANNER_ID).appendChild(can);
 
     var click_ev = 'ontouchstart' in window ? 'touchstart' : 'click';
 
-    can.addEventListener(click_ev, function(ev) {
-        ev.stopPropagation();
+    add_event(click_ev, can, function(ev) {
+        ev = ev || window.event;
         window.open(channel.qr);
-    }, false);
+	return stop_event(ev);
+    });
 }
 
 function hide_banner() {
@@ -264,7 +288,6 @@ function traverse_form(elem, fn) {
 // Code to call the 'data-seqrentry-func' callback
 function call_func(type, elem, value) {
     var rc = new Function('type', 'value', elem.getAttribute(FUNC_ATTR)).call(elem, type, value);
-    var ev;
 
     if (rc !== null) {
         value = rc !== undefined ? rc : value;
@@ -272,14 +295,7 @@ function call_func(type, elem, value) {
         if (value !== undefined && value !== '') {
             elem.value = value;
 
-            if ("fireEvent" in elem) {
-                elem.fireEvent("onchange");
-            }
-            else {
-                ev = document.createEvent("HTMLEvents");
-                ev.initEvent("change", false, true);
-                elem.dispatchEvent(ev);
-            }
+            trigger_event("change", elem);
         }
     }
 }
@@ -352,7 +368,7 @@ SeQRentry['proxyResponse'] = function(status, params) {
             if (type == 'form') {
                 form = elem;
             }
-            else {
+            else if (typeof params[type] !== "undefined") {
                 call_func(type, elem, decode_param(channel.key, type, params[type]));
             }
         });

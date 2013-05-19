@@ -4,24 +4,29 @@ var Random = {
   _ritardandoState: {},
 
   init: function() {
-    window.addEventListener('load', function load(ev){
+    add_event('load', window, function load(ev) {
+      ev = ev || window.event;
       // Add DOM load time to entropy
       Random.addEntropy(ev.type);
     });
 
-    window.addEventListener("scroll", function(ev) {
-      Random.addRitardandoEntropy(ev.type, ev.type + ev.timeStamp + window.pageXOffset + window.pageYOffset);
+    add_event("scroll", window, function(ev) {
+      ev = ev || window.event;
+      Random.addRitardandoEntropy(ev.type, ev.type + (window.pageXOffset || document.documentElement.scrollLeft) + (window.pageYOffset || document.documentElement.scrollTop));
     });
 
-    window.addEventListener("mousemove", function(ev) {
-      Random.addRitardandoEntropy(ev.type, ev.type + ev.clientX + ev.clientY + ev.screenX + ev.screenY + ev.timeStamp);
+    add_event("mousemove", document, function(ev) {
+      ev = ev || window.event;
+      Random.addRitardandoEntropy(ev.type, ev.type + ev.clientX + ev.clientY + ev.screenX + ev.screenY);
     });
 
-    window.addEventListener("deviceorientation", function(ev) {
-      Random.addRitardandoEntropy(ev.type, ev.type + ev.alpha + ev.beta + ev.gamma + ev.timeStamp);
+    add_event("deviceorientation", window, function(ev) {
+      ev = ev || window.event;
+      Random.addRitardandoEntropy(ev.type, ev.type + ev.alpha + ev.beta + ev.gamma);
     });
 
-    window.addEventListener("devicemotion", function(ev) {
+    add_event("devicemotion", window, function(ev) {
+      ev = ev || window.event;
       var acc = ev.accelerationIncludingGravity;
 
       if (acc) {
@@ -29,8 +34,9 @@ var Random = {
       }
     });
 
-    window.addEventListener("keydown", function(ev) {
-      Random.addRitardandoEntropy(ev.type, ev.type + ev.keyCode + ev.which + ev.timeStamp);
+    add_event("keydown", document, function(ev) {
+      ev = ev || window.event;
+      Random.addRitardandoEntropy(ev.type, ev.type + ev.keyCode + ev.which);
     });
 
     // Now add some entropy

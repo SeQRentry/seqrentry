@@ -2,7 +2,7 @@
 @import 'reset';
 
 /* IE8 */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     display:block;
 }
 
@@ -317,7 +317,12 @@ fieldset {
     font-style:  italic;
 }
 
-#demo .sqbutton, #demo .sqbutton::-moz-focus-inner {
+#demo .sqbutton {
+    padding:       0px;
+    border:        0px;
+}
+
+#demo .sqbutton::-moz-focus-inner {
     padding:       0px;
     border:        0px;
 }
