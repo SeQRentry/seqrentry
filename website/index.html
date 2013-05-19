@@ -279,7 +279,7 @@
 
         <div class="columns">
           <p>When the user clicks on a <cite>SeQRentry</cite> action
-          button, a random 128 bit key is generated and a long-polling
+          button, a random 128-bit key is generated and a long-polling
           connection to one of the <cite>SeQRentry</cite> proxy servers
           is opened. The key, details about the proxy server and a few
           more things are then encoded as a QR code and displayed
@@ -295,7 +295,7 @@
           <p>The important thing to remember here is that the
           credentials that are sent from the phone to the web browser
           (via the proxy server) are encrypted with a one-time pad,
-          derived from a random 128 bit key, which is never
+          derived from a random 128-bit key, which is never
           reused. That key is <em>never transmitted
           electronically</em> over the network; instead, it is sent
           <q>over the air</q> directly from the computer's screen to
@@ -325,8 +325,8 @@
             <li>A <em>username</em>, which can be any string.</li>
 
             <li>A randomly generated <em>password</em>, which is just
-            22 digits and letters from the Base 64 (URL safe)
-            alphabet, encoding a 128 bit random number.</li>
+            22 digits and letters from the (URL safe) Base64 
+            alphabet, encoding a 128-bit random number.</li>
 
             <li>A <em>realm</em>, which identifies your site. By
             default, the realm is equal to the host part of your web
@@ -524,13 +524,13 @@
 
           <p>The reason we pass parameters in the fragment part and
           not the query part is that the fragment never leaves the
-          browser. It is never sent over the internet. In contrast,
+          browser. It is never sent over the Internet. In contrast,
           normal query parameters end up in server logs, web analytics
           tools and can easily be sniffed, if the transport channel is
           not encrypted.</p>
 
           <p>Since one of the parameters we need to transmit is the
-          unique, secret key which is used to derive password and
+          unique, secret key that is used to derive password and
           parameter encryption keys, it is essential that this key is
           never, <em>ever</em> sent over the network. Putting the
           parameters in the fragment part solves this problem
@@ -540,7 +540,7 @@
         <h1>Parameters</h1>
 
         <div class="columns">
-          <p>The follwoing sections will describe the parameters that
+          <p>The following sections will describe the parameters that
           are currently in use. More parameters may be defined in the
           future. When parsing the URL, unknown parameters should
           always be ignored.</p>
@@ -550,15 +550,15 @@
 
           <h2>Proxy URL: <code>p</code></h2>
 
-          <p>The <code>p</code> param is used to pass the location of
-          the proxy to use. You are supposed to append
+          <p>The <code>p</code> parameter is used to pass the location
+          of the proxy to use. You are supposed to append
           <code>.json</code>, <code>.xml</code> or <code>.js</code> to
           this string to indicate in what format you would like to
           receive the response.</p>
 
-          <p>Example: If you prefer JSON, and the <code>p</code> param
-          is <q>https://seqrentry.net/proxy</q>, you should post your
-          response to the URL
+          <p>Example: If you prefer JSON, and the <code>p</code>
+          parameter is <q>https://seqrentry.net/proxy</q>, you should
+          post your response to the URL
           <q>https://seqrentry.net/proxy.json</q>.</p>
 
           <p>Note that the format only defines the format of the
@@ -575,7 +575,7 @@
 
           <h2>Account Realm: <code>r</code></h2>
 
-          <p>This parameters specifies the realm of the service being
+          <p>This parameter specifies the realm of the service being
           authenticated. Should be a domain name, but it could also be
           just a company or service name.</p>
 
@@ -589,7 +589,7 @@
           <p>This is the secret, random derivation key that the
           browser generates and which is used to derive keys for
           encrypting all parameters that are sent via the proxy to the
-          browser. It is a Base 64-encoded 128 bit random number,
+          browser. It is a Base64-encoded 128-bit random number,
           encoded using the URL-safe alphabet and with the trailing
           <q>=</q> symbols removed.</p>
         </div>
@@ -616,18 +616,19 @@
           account. Example values are <q>seqrentry.net/demo</q> and
           <q>user@example.com</q>.</p>
 
-          <p>You are expected to generate a new 128 bit random number
+          <p>You are expected to generate a new 128-bit random number
           using a cryptographically strong random number generator,
           but a 3<sup>rd</sup> party key ring application could also
           prompt the user for a password to use; this is, however,
           <em>strongly discouraged</em>, as it kind of defeats the
           purpose of the <cite>SeQRentry</cite> system.</p>
 
-          <p>Convert the generated key to printable characters by Base
-          64-encoding it (using the URL-safe alphabet) and removing
-          the trailing <q>=</q> symbols. Or use another algorithm that
-          you like. The important thing is that the password is strong
-          and that it can be pasted into an HTML input field.</p>
+          <p>Convert the generated key to printable characters by
+          Base64-encoding it (using the URL-safe alphabet) and
+          removing the trailing <q>=</q> symbols. Or use another
+          algorithm that you like. The important thing is that the
+          password is strong and that it can be pasted into an HTML
+          input field.</p>
 
           <p>Once you have stored the credentials securely locally,
           you should post the following parameters to the proxy URL
@@ -643,11 +644,11 @@
             response.</li>
 
             <li><code>username</code>: The username (from the
-            <code>u</code> URL parameter), encrypted and Base
-            64-encoded.</li>
+            <code>u</code> URL parameter), encrypted and
+            Base64-encoded.</li>
 
             <li><code>new-password</code>: The generated password,
-            encrypted and Base 64-encoded.</li>
+            encrypted and Base64-encoded.</li>
           </ul>
 
           <p>See below for information about how the parameters are
@@ -657,9 +658,9 @@
 
           <p>The most common action is the <code>login</code>
           action. The following URL parameters are present:
-          <code>p</code>, <code>t</code>, <code>r</code>,
+          <code>p</code>, <code>t</code>, <code>r</code> and
           <code>k</code>. It is possible that the <code>u</code>
-          parameters is also present. In that case, you should use it
+          parameter is also present. In that case, you should use it
           to select what password to send, in case there are multiple
           accounts stored from this realm.</p>
 
@@ -676,10 +677,10 @@
 
             <li><code>username</code>: The username (from the
             <code>u</code> URL parameter or selected by the user),
-            encrypted and Base 64-encoded.</li>
+            encrypted and Base64-encoded.</li>
 
             <li><code>password</code>: The account password, encrypted
-            and Base 64-encoded.</li>
+            and Base64-encoded.</li>
           </ul>
 
           <h2>Reset Password: <code>change</code></h2>
@@ -691,14 +692,14 @@
 
           <p>The following URL parameters are present: <code>p</code>,
           <code>t</code>, <code>r</code> and <code>k</code>. It is
-          possible that the <code>u</code> parameters is also
+          possible that the <code>u</code> parameter is also
           present. In that case, you should use it to select what
           password to send, in case there are multiple accounts stored
           from this realm.</p>
 
-          <p>Generate a new 128 bit random number using a
+          <p>Generate a new 128-bit random number using a
           cryptographically strong random number generator, convert it
-          to printable characters by Base 64-encoding it (using the
+          to printable characters by Base64-encoding it (using the
           URL-safe alphabet) and post the following parameters to the
           proxy:</p>
 
@@ -712,13 +713,13 @@
 
             <li><code>username</code>: The username (from the
             <code>u</code> URL parameter or selected by the user),
-            encrypted and Base 64-encoded.</li>
+            encrypted and Base64-encoded.</li>
 
             <li><code>password</code>: The old account password,
-            encrypted and Base 64-encoded.</li>
+            encrypted and Base64-encoded.</li>
 
             <li><code>new-password</code>: The newly generated
-            password, encrypted and Base 64-encoded.</li>
+            password, encrypted and Base64-encoded.</li>
           </ul>
         </div>
 
@@ -736,11 +737,11 @@
           success or failure of the request:</p>
 
           <ul>
-            <li>200/<code>proxyNotified</code>: The credentials was
+            <li>200/<code>proxyNotified</code>: The credentials were
             successfully posted and relayed to the client
             (browser).</li>
 
-            <li>202/<code>proxyNotified</code>: The credentials was
+            <li>202/<code>proxyNotified</code>: The credentials were
             successfully posted, but there were no client listening on
             the channel right now. The credentials will be kept by the
             proxy for a couple of minutes, so it's possible, even
@@ -794,50 +795,46 @@
         <div class="columns">
           <p>All parameters that are to be sent to the client
           (browser) must be encrypted. Every time a QR code is
-          created, the client generates a random 128 bit key, Base
-          64-encodes it and sends it to the key ring application in
-          the <code>k</code> URL parameter.</p>
+          created, the client generates a random 128-bit key,
+          Base64-encodes it and sends it to the key ring application
+          via the <code>k</code> URL parameter.</p>
 
-          <p>Note that the URL-safe Base 64 alphabet is used, and that
+          <p>Note that the URL-safe Base64 alphabet is used, and that
           trailing <q>=</q> symbols have been removed. This is done so
           that the string that is encoded in the QR code is as short
           as possible. The less data in the QR code, the easier it
           will be to scan it.</p>
 
-          <p>These Base 64-encoded strings can be converted into
-          regular Base 64 by replacing all <q>-</q> symbols with
+          <p>(These Base64-encoded strings can be converted into
+          regular Base64 by replacing all <q>-</q> symbols with
           <q>+</q> and all <q>_</q> symbols with <q>/</q>. Finally,
           add one or two <q>=</q> symbols to make the final length a
-          multiple of 4.</p>
+          multiple of 4.)</p>
 
           <p>Using this key, you derive parameter keys (more like
           one-time pads, actually) using HMAC-SHA256:</p>
 
           <ol>
-            <li>Start by Base 64-decoding the <code>k</code> URL
-            parameter. Note that it will be encoded using the URL-safe
-            alphabet and that trailing <q>=</q> symbols have been
-            removed.</li>
+            <li>Start by Base64-decoding the <code>k</code> URL
+            parameter. The resulting 16 bytes is the 128-bit
+            derivation key.</li>
 
-            <li>The resulting 16 bytes is the 128 bit derivation
-            key.</li>
-
-            <li>UTF 8-encode the parameter value to be encrypted into
-            a sequence of bytes.</li>
+            <li>UTF-8-encode the parameter value to be encrypted into
+            a sequence of bytes, if required.</li>
 
             <li>Construct a message by taking the
             ASCII/Latin-1/UTF-8-encoded parameter name (it should not
-            contain non-ASCII symbols, so all these encodings are
-            equal) and appending an ASCII <q>0</q> digit (ASCII value
-            0x30).</li>
+            contain non-ASCII symbols, so these encodings are all
+            equivalent) and appending an ASCII <q>0</q> digit (ASCII
+            value 0x30).</li>
 
             <li>Calculate the keyed-hash message authentication code
-            using the HMAC-SHA256 algorithm, using the 128 bit
-            derivation key as constructed message from the previous
-            step. This generates 32 new bytes, which will be used to
-            encode the parameter.</li>
+            using the HMAC-SHA256 algorithm, using the 128-bit
+            derivation key and the constructed message from the
+            previous steps. This generates 32 new bytes, which will be
+            used to encode the parameter.</li>
 
-            <li>For each byte in the UTF 8-encoded parameter value,
+            <li>For each byte in the UTF-8-encoded parameter value,
             XOR it with the corresponding byte in from the HMAC-SHA256
             result.</li>
 
@@ -846,11 +843,10 @@
             time appending the ASCII digit <q>1</q> instead. And so
             on. In the rare case you need to encode more than 320
             bytes, the 11<sup>th</sup> XOR block should be generated
-            by appending the two ASCII digits <q>1</q> and
-            <q>0</q>.</li>
+            by appending two ASCII digits, <q>1</q> and <q>0</q>.</li>
 
-            <li>Finally, Base 64-encode the result (using the URL-safe
-            alphabet).</li>
+            <li>Finally, Base64-encode the result (again, using the
+            URL-safe alphabet).</li>
           </ol>
         </div>
 
@@ -864,8 +860,8 @@
           alt="Example SeQRentry Code" style="border: 1px solid black;" /></p>
 
           <p>The <cite>SeQRentry</cite> code to process is shown
-          abovce. Once decoded, we end up with the following URL
-          (split into multiple lines for readability) :</p>
+          above. Once decoded, we end up with the following URL (split
+          into multiple lines for readability) :</p>
 
           <pre class="prettyprint"><span class="nocode"><span class="typ">http</span>://<span class="kwd">seqrentry.net</span>/<span class="tag">login</span>
   #<span class="atn">p</span>=<span class="atv">https%3A%2F%2Fproxy.seqrentry.net%2Fproxy</span>
@@ -895,7 +891,7 @@
           and the password is <q>SIqDSphiNaOYVgJUzrJk1Q</q>.</p>
 
           <p>The first thing we need to do is to decode the derivation
-          key. Base 64-decode the value of the <code>k</code>
+          key. Base64-decode the value of the <code>k</code>
           parameter, <code>KbmRJaAeFLNzdoCs75AjKQ</code>, and you end
           up with the following 16 bytes:</p>
 
@@ -915,24 +911,24 @@
 5d c2 f5 70 76 c0 79 c1 51 fd 39 91 bf 1b 0a cd</span></pre>
 
           <p>The username to encrypt, <cite>user@example.com</cite>,
-          is UTF 8-encoded into the following 16 bytes:</p>
+          is UTF-8-encoded into the following 16 bytes:</p>
 
           <pre class="prettyprint"><span class="nocode">75 73 65 72 40 65 78 61 6d 70 6c 65 2e 63 6f 6d</span></pre>
 
-          <p>Now simply XOR each byte from the UTF 8-encoded username
+          <p>Now simply XOR each byte from the UTF-8-encoded username
           and first 16 of the above 32 bytes:</p>
 
           <pre class="prettyprint"><span class="nocode">Input:  75 73 65 72 40 65 78 61 6d 70 6c 65 2e 63 6f 6d
 Xor:    82 71 7f c2 3e b5 e8 82 02 04 dc 94 a6 26 59 a6
 Result: f7 02 1a b0 7e d0 90 e3 6f 74 b0 f1 88 45 36 cb</span></pre>
 
-          <p>Base 64-encode the result, and you end up with
+          <p>Base64-encode the result, and you end up with
           <code>9wIasH7QkONvdLDxiEU2yw</code>. This is the value we
-          will post to the proxy in the <code>username</code>
-          variable.</p>
+          will post to the proxy as the <code>username</code>
+          parameter.</p>
 
-          <p>Here's a <cite>Python</cite> example that highlights the
-          math:</p>
+          <p>Here's a small <cite>Python</cite> example that
+          highlights the math:</p>
 
           <pre class="prettyprint"><code class="language-python">#!/usr/bin/env python
 
@@ -967,7 +963,7 @@ print 'Username ^ HMAC (b64): ' + \
       base64.urlsafe_b64encode(res).rstrip('=')
 </code></pre>
 
-          <p>Perform the same calculation for the password. Then post
+          <p>Perform the same calculations for the password. Then post
           the <code>token</code>, <code>username</code> and
           <code>password></code> parameters to the proxy URL:</p>
 
