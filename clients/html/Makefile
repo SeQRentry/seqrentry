@@ -1,6 +1,6 @@
 
 DESTDIR		= ../../destdir
-FILES		= $(TARGETS) button.png spinner.gif
+FILES		= $(TARGETS) spinner.gif
 
 VERSION		= 0.9
 TARGETS_ORIG	= seqrentry.js seqrentry.css
