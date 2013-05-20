@@ -32,6 +32,8 @@ $shine:  #ed9;
     color:         #000000;
     z-index:       2000000000;
 
+    text-align:    center; /* IE7 */
+
     /* Visual extras */
     animation-name:     seqrentry-banner-anim;
     animation-duration: 1s;

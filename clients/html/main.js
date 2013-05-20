@@ -160,7 +160,7 @@ function show_banner(button) {
     var div = document.createElement('div');
 
     div.id = BANNER_ID;
-    div.style.top = ((window.innerHeight || document.documentElement.clientHeight) - BANNER_HEIGHT) / 2 + 'px';
+    div.style.top = ((window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) - BANNER_HEIGHT) / 2 + 'px';
     div.title = 'Click to cancel';
 
     document.body.insertBefore(div, document.body.firstChild);
