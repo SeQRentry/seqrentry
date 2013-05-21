@@ -106,9 +106,11 @@ function decode_param(key, type, param) {
 function script_load(url) {
     script_cancel();
 
-    var script = document.body.appendChild(document.createElement('script'));
-    script.setAttribute('id', SCRIPT_ID);
-    script.setAttribute('src', url)
+    window.setTimeout(function() {
+        var script = document.body.appendChild(document.createElement('script'));
+        script.setAttribute('id', SCRIPT_ID);
+        script.setAttribute('src', url)
+    }, 1);
 }
 
 function script_cancel() {
