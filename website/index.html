@@ -228,10 +228,10 @@
   &#8230;</code></pre>
 
         <div class="columns">
-          <p>(A word of caution: in production, you should download
-          the CSS and JavaScript files and serve them from your own
-          site. When it comes to your user's credentials, you should
-          trust <em>nobody</em> except yourself.)</p>
+          <p><em>A word of caution</em>: in production, you should
+          download the CSS and JavaScript files and serve them from
+          your own site. When it comes to your user's credentials, you
+          should trust <em>nobody</em> except yourself.</p>
 
           <p>Next, you need to mark up your input fields. This is done
           by adding a <code>data-seqrentry-type</code> attribute to
@@ -276,6 +276,12 @@
           scanned, the marked-up input fields are automatically
           populated with the credentials from the user's phone.</p>
 
+	  <p>Note that all account activity in the app is triggered by
+	  a <cite>SeQRentry</cite> code. Users cannot, for instance,
+	  add accounts on their own; instead, the web site must
+	  provide a <code>register</code> or <code>new-password</code>
+	  QR code for this to happen.</p>
+
           <p>Check out the <a href="#demo">demo section</a> and look
           at the source code of this page for a live example.</p>
         </div>
@@ -317,7 +323,7 @@
           <em>all</em> your users' passwords are. <em>Of course</em>
           you will still be using PBKDF2, bcrypt or scrypt with a high
           iteration count before storing any password in a
-          database.</p>
+          database!</p>
         </div>
 
         <h1>Advanced Configuration</h1>
