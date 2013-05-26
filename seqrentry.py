@@ -161,7 +161,7 @@ class Proxy(ProxyBase):
                 self._sendProxyResponse(token, 408, 'proxyTimeout', {})
 
 if __name__ == '__main__':
-    syslog.openlog(logoption=syslog.LOG_PID|syslog.LOG_PERROR, facility=syslog.LOG_DAEMON)
+    syslog.openlog("seqrentry.py", syslog.LOG_PID|syslog.LOG_PERROR, syslog.LOG_DAEMON)
 
     parser = argparse.ArgumentParser(description='Start the SeQRentry proxy.', add_help = False)
     parser.add_argument('-?', '-h', '--help', help='Display this message and exit', action='store_true', dest='help')
