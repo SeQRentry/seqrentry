@@ -5,6 +5,7 @@ import base64
 import json
 import os;
 import sys
+import syslog
 
 from twisted.internet import reactor
 from twisted.internet.error import BindError
@@ -88,7 +89,7 @@ class CreateProxy(ProxyBase):
 
             if token not in proxies:
                 proxies[token] = { 'ct': None, 'ident': None, 'request': None, 'creds': None }
-                print("Created proxy " + token)
+                syslog.syslog(syslog.LOG_INFO, "Created proxy " + token)
                 break
 
         reactor.callLater(PROXY_LIFETIME, self._deleteProxy, token)
@@ -102,7 +103,7 @@ class CreateProxy(ProxyBase):
                 self._sendProxyResponse(token, 410, 'proxyDeleted', {})
 
             del proxies[token]
-            print("Removed proxy " + token)
+            syslog.syslog(syslog.LOG_INFO, "Removed proxy " + token)
 
 class Proxy(ProxyBase):
     def __init__(self, mode):
@@ -160,6 +161,8 @@ class Proxy(ProxyBase):
                 self._sendProxyResponse(token, 408, 'proxyTimeout', {})
 
 if __name__ == '__main__':
+    syslog.openlog(logoption=syslog.LOG_PID|syslog.LOG_PERROR, facility=syslog.LOG_DAEMON)
+
     parser = argparse.ArgumentParser(description='Start the SeQRentry proxy.', add_help = False)
     parser.add_argument('-?', '-h', '--help', help='Display this message and exit', action='store_true', dest='help')
     parser.add_argument('-p', '--proxy-url', metavar = 'URL', help='Override proxy URL returned to clients', dest='proxy_url')
@@ -201,14 +204,17 @@ if __name__ == '__main__':
         site = server.Site(root)
         reactor.listenTCP(int(http[1]), site, 50, http[0])
 
-        print 'Listening for HTTP requests on {0}.'.format(':'.join(http))
+        syslog.syslog(syslog.LOG_NOTICE, 'Listening for HTTP requests on {0}.'.format(':'.join(http)))
 
         if path:
-            print 'Also serving static content from {0}.'.format(path)
+            syslog.syslog(syslog.LOG_NOTICE, 'Also serving static content from {0}.'.format(path))
 
         print 'Press Control-C to exit.'
 
         reactor.run()
         print
     except BindError as ex:
-        print ex
+        syslog.syslog(syslog.LOG_ERR, str(ex))
+
+    syslog.syslog(syslog.LOG_NOTICE, 'Shut down.')
+    syslog.closelog()
