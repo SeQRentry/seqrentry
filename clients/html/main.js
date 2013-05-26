@@ -93,7 +93,7 @@ function derive_key(key, type, length) {
 function decode_param(key, type, param) {
     var result = [];
 
-    param = Base64.decode(param, Base64.urlCS);
+    param = decodeURIComponent(escape(Base64.decode(param, Base64.urlCS))); // Decode Base64-encoded UTF-8 string
     key   = derive_key(Base64.decode(key, Base64.urlCS), type, param.length);
 
     for (var i = 0; i < param.length; ++i) {
