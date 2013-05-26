@@ -107,7 +107,8 @@ function script_load(url) {
     script_cancel();
 
     window.setTimeout(function() {
-        var script = document.body.appendChild(document.createElement('script'));
+        var where  = document.getElementsByTagName('script')[0];
+        var script = where.parentNode.insertBefore(document.createElement('script'), where);
         script.setAttribute('id', SCRIPT_ID);
         script.setAttribute('src', url)
     }, 1);
