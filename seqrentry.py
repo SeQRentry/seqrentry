@@ -14,7 +14,7 @@ from twisted.web import server, static, resource
 from xml.etree import ElementTree
 
 PROXY_LIFETIME = 10 * 60
-PROXY_WAITTIME = 30
+PROXY_WAITTIME = 60
 
 EXTENSIONS = { 'application/json': '.json',
                'application/xml':  '.xml',
